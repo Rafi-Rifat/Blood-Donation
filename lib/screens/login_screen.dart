@@ -1,0 +1,372 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:auth_app/screens/home_screen.dart';
+import 'package:auth_app/screens/signup_screen.dart';
+import '../helper/firebase_auth.dart';
+import '../helper/validator.dart';
+
+// function to implement the google signin
+
+// creating firebase instance
+final FirebaseAuth auth = FirebaseAuth.instance;
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  // Future<void> _handleSignIn() async {
+  //   try {
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+  //     if (googleSignInAccount != null) {
+  //       // Successful sign-in, you can now use googleSignInAccount to access user information.
+  //     }
+  //   } catch (error) {
+  //     // Handle sign-in error.
+  //   }
+  // }
+
+  // Future<void> _signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+  //     if (googleSignInAccount != null) {
+  //       final GoogleSignInAuthentication googleSignInAuth =
+  //           await googleSignInAccount.authentication;
+  //       final AuthCredential credential = GoogleAuthProvider.credential(
+  //         accessToken: googleSignInAuth.accessToken,
+  //         idToken: googleSignInAuth.idToken,
+  //       );
+  //       final UserCredential authResult =
+  //           await FirebaseAuth.instance.signInWithCredential(credential);
+  //       final User? user = authResult.user;
+  //       // Now you can use 'user' to interact with Firebase services.
+  //     }
+  //   } catch (error) {
+  //     // Handle sign-in error.
+  //   }
+  // }
+
+  final _formKey = GlobalKey<FormState>();
+
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+
+  final _focusEmail = FocusNode();
+  final _focusPassword = FocusNode();
+
+  bool _isProcessing = false;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            user: user,
+          ),
+        ),
+      );
+    }
+    return firebaseApp;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        _focusEmail.unfocus();
+        _focusPassword.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          title: Text('Blood Donation'),
+          centerTitle: true,
+        ),
+        body: FutureBuilder(
+          future: _initializeFirebase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height / 3,
+                      child: Image.asset('images/blood.jpg'),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  color: Colors.white,
+                                  child: const Text(
+                                    "Email",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.black,
+                                ),
+                                child: TextFormField(
+                                  controller: _emailTextController,
+                                  focusNode: _focusEmail,
+                                  obscureText: true,
+                                  validator: (value) => Validator.validateEmail(
+                                    email: value,
+                                  ),
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: const InputDecoration(
+                                    hintText: "Email",
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                    ),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.white,
+                                    ),
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  color: Colors.white,
+                                  child: const Text(
+                                    "Password",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.black,
+                                ),
+                                child: TextFormField(
+                                  controller: _passwordTextController,
+                                  focusNode: _focusPassword,
+                                  obscureText: true,
+                                  validator: (value) =>
+                                      Validator.validatePassword(
+                                    password: value,
+                                  ),
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: const InputDecoration(
+                                    hintText: "Password",
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                    ),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.white,
+                                    ),
+                                    hintStyle: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 44.0),
+                          _isProcessing
+                              ? CircularProgressIndicator()
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          _focusEmail.unfocus();
+                                          _focusPassword.unfocus();
+
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              _isProcessing = true;
+                                            });
+
+                                            User? user =
+                                                await FirebaseAuthHelper
+                                                    .signInUsingEmailPassword(
+                                              email: _emailTextController.text,
+                                              password:
+                                                  _passwordTextController.text,
+                                            );
+
+                                            setState(() {
+                                              _isProcessing = false;
+                                            });
+
+                                            if (user != null) {
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen(user: user),
+                                                ),
+                                              );
+                                            }
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Sign In',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .all<Color>(Color.fromARGB(
+                                                        255, 0, 0, 0)),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ))),
+                                      ),
+                                    ),
+                                    SizedBox(width: 24.0),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignUpScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'SignUp',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .all<Color>(Color.fromARGB(
+                                                        255, 0, 0, 0)),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ))),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                          const SizedBox(height: 20),
+                          const Center(
+                            child: Text(
+                              '- Or Sign In with -',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignUpScreen()));
+                                },
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.white38,
+                                  ),
+                                  child: Image.asset('images/google.png'),
+                                ),
+                              ),
+                              const SizedBox(width: 50),
+                              GestureDetector(
+                                onTap: () {
+                                  // _signInWithGoogle();
+                                },
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.white38,
+                                  ),
+                                  child: Image.asset('images/facebook.png'),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
