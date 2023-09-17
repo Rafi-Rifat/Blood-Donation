@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             color: Colors.blue.shade700,
             fontWeight: FontWeight.w500,
           ),
-          bodyText1: const TextStyle(fontSize: 18.0),
+          bodyLarge: const TextStyle(fontSize: 18.0),
         ),
       ),
       home: SplashScreen(), // Use SplashScreen as the home widget
