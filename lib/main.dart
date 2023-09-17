@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           bodyLarge: const TextStyle(fontSize: 18.0),
         ),
       ),
-      home: const SplashScreen(), // Use SplashScreen as the home widget
+      home:  SplashScreen(), // Use SplashScreen as the home widget
     );
   }
 }
