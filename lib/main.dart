@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Blood donation',
+      title: 'blood donation',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
