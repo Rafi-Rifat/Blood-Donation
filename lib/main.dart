@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(
+          displayLarge: TextStyle(
             fontSize: 46.0,
             color: Colors.blue.shade700,
             fontWeight: FontWeight.w500,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           bodyLarge: const TextStyle(fontSize: 18.0),
         ),
       ),
-      home: SplashScreen(), // Use SplashScreen as the home widget
+      home: const SplashScreen(), // Use SplashScreen as the home widget
     );
   }
 }
