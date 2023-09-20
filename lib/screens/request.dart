@@ -10,14 +10,14 @@ class RequestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blood Request Form'),
+        title: const Text('Blood Request Form'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Please fill out the blood request form:',
               style: TextStyle(
                 fontSize: 18,
@@ -46,7 +46,7 @@ class RequestPage extends StatelessWidget {
             TextField(
               maxLines: 3,
               decoration: InputDecoration(
-                labelText: 'Additional Notes (if any)',
+                labelText: 'Address',
               ),
             ),
             SizedBox(height: 20),

@@ -1,7 +1,9 @@
+import 'package:auth_app/screens/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app/screens/login_screen.dart';
 import 'request.dart';
+import 'update_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -26,8 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     HomeContent(),
     RequestPage(), // Replace with your Blood Request page
-    UpdateContent(),
-    SettingsContent(),
+    UpdatePage(
+      requestAccepted: true,
+    ),
+    SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -94,12 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'NAME: ${_currentUser.displayName}',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 16.0),
                       Text(
                         'EMAIL: ${_currentUser.email}',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       SizedBox(height: 16.0),
                       ElevatedButton(
@@ -147,14 +151,25 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.update),
               title: const Text('Update'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UpdatePage(
+                            requestAccepted: true,
+                          )), // Replace RequestPage() with the appropriate widget from request.dart
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          SettingsPage()), // Replace RequestPage() with the appropriate widget from request.dart
+                );
               },
             ),
           ],
@@ -191,49 +206,37 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Welcome to the Home Page',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Blood Donation App'),
       ),
-    );
-  }
-}
-
-class UpdateContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Welcome to the Update Page',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SettingsContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Welcome to the Settings Page',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Welcome to the Blood Donation App',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                // Add functionality to navigate to the blood donation request page.
+              },
+              child: Text('Donate Blood'),
+            ),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                // Add functionality to navigate to the blood donation request list page.
+              },
+              child: Text('Find Blood Donors'),
+            ),
+          ],
+        ),
       ),
     );
   }
