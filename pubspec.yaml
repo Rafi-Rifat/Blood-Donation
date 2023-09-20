@@ -40,6 +40,7 @@ dependencies:
   google_sign_in: ^6.1.4
   lottie: ^2.6.0
   url_launcher: ^6.1.14
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -64,14 +65,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images\flutter.png
-    - images\login.jpg
-    - images\techn.png
-    - images\google.png
-    - images\facebook.png
-    - images\pic.jpg
-    - images\blood.jpg
-    - images\a.json
+    - images/
+    # - images\login.jpg
+    # - images\techn.png
+    # - images\google.png
+    # - images\facebook.png
+    # - images\pic.jpg
+    # - images\blood.jpg
+    # - images\a.json
+    # - images\blood_donation.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

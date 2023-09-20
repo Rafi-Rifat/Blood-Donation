@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auth_app/screens/login_screen.dart';
 import 'request.dart';
 import 'update_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -208,18 +209,22 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 1, 48, 54),
             icon: Icon(Icons.favorite_outlined),
             label: 'Blood Request',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 1, 48, 54),
             icon: Icon(Icons.update),
             label: 'Update',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 1, 48, 54),
             icon: Icon(Icons.post_add),
             label: 'Posts',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 1, 48, 54),
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
@@ -233,9 +238,6 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Blood Donation App'),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -251,29 +253,29 @@ class HomeContent extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Text(
-              //   'Welcome to the Blood Donation App',
-              //   style: TextStyle(
-              //     fontSize: 20.0,
-              //     fontWeight: FontWeight.bold,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              SizedBox(height: 20.0),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // Add functionality to navigate to the blood donation request page.
-              //   },
-              //   child: Text('Donate Blood'),
-              // )
+              // SizedBox(height: 20.0),
+              // SizedBox(height: 20.0),
+              CarouselSlider(
+                items: [
+                  Image.asset('images/blood_donation-removebg.png'),
+                  Image.asset('images/blood1-removebg-preview.png'),
+                  Image.asset('images/blood2-removebg-preview.png'),
+                  Image.asset('images/blood4-removebg-preview.png'),
+                ],
+                options: CarouselOptions(
+                  height: 200.0, // Adjust the height as needed.
+                  enableInfiniteScroll: true,
+                  autoPlay: true,
+                ),
+              ),
+              SizedBox(height: 200.0),
               ElevatedButton(
                 onPressed: () {
                   // Add functionality to navigate to the blood donation request page.
                 },
                 child: Text('Donate Blood'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.red, // Set the background color to red.
+                  primary: Colors.red,
                 ),
               ),
               SizedBox(height: 20.0),
@@ -283,7 +285,7 @@ class HomeContent extends StatelessWidget {
                 },
                 child: Text('Find Blood Donors'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  primary: Colors.red,
                 ),
               ),
             ],
