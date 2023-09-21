@@ -179,9 +179,27 @@ class _SettingsPageState extends State<SettingsPage> {
           ? darkTheme
           : lightTheme, // Apply the selected theme
       home: Scaffold(
+        // appBar: AppBar(
+        //   title: Text('Settings'),
+        // )
         appBar: AppBar(
-          title: Text('Settings'),
+          title: Center(
+            // Center the title
+            child: Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: 24, // Adjust the font size
+                fontWeight: FontWeight.bold, // Add bold font weight
+                color: Colors.white, // Text color
+              ),
+            ),
+          ),
+          backgroundColor:
+              Color.fromARGB(255, 3, 66, 80), // Background color of the AppBar
+          elevation: 0, // Remove the shadow
+          centerTitle: true, // Center the title horizontally
         ),
+
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -226,19 +244,53 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               SizedBox(height: 10),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // Handle account settings button press
+              //   },
+              //   child: Text('Edit Profile'),
+              // )
               ElevatedButton(
                 onPressed: () {
                   // Handle account settings button press
                 },
                 child: Text('Edit Profile'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 3, 67, 77), // Text color
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 12), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Button border radius
+                  ),
+                  elevation: 4, // Button elevation (shadow)
+                ),
               ),
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  // Handle logout button press
+                  // Handle account settings button press
                 },
                 child: Text('Logout'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 3, 67, 77), // Text color
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 12), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Button border radius
+                  ),
+                  elevation: 4, // Button elevation (shadow)
+                ),
               ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // Handle logout button press
+              //   },
+              //   child: Text('Logout'),
+              // ),
             ],
           ),
         ),

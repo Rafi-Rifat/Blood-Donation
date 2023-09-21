@@ -253,8 +253,6 @@ class HomeContent extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // SizedBox(height: 20.0),
-              // SizedBox(height: 20.0),
               CarouselSlider(
                 items: [
                   Image.asset('images/blood_donation-removebg.png'),
@@ -273,7 +271,7 @@ class HomeContent extends StatelessWidget {
                 onPressed: () {
                   // Add functionality to navigate to the blood donation request page.
                 },
-                child: Text('Donate Blood'),
+                child: const Text('Donate Blood'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.red,
                 ),
