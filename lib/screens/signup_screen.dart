@@ -1,8 +1,18 @@
+import 'package:auth_app/Databases/Firestore.dart';
+import 'package:auth_app/Databases/MakeUserList.dart';
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/Work/Tree.dart';
+import 'package:auth_app/common.dart';
+import 'package:auth_app/helper/map.dart';
+import 'package:auth_app/screens/blood.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:auth_app/screens/home_screen.dart';
 import 'package:auth_app/helper/firebase_auth.dart';
 import 'package:auth_app/helper/validator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -12,9 +22,15 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _registerFormKey = GlobalKey<FormState>();
 
-  final _nameTextController = TextEditingController();
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final Controller controller=Get.find();
+
+
+  late List<Pair<String,double>> yoo;
+  // final _nameTextController = TextEditingController();
+  // final _emailTextController = TextEditingController();
+  // final _passwordTextController = TextEditingController();
+  late String bl='01';
+  LatLng lat=LatLng(0, 0);
 
   final _focusName = FocusNode();
   final _focusEmail = FocusNode();
@@ -27,8 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return GestureDetector(
       onTap: () {
         _focusName.unfocus();
-        _focusEmail.unfocus();
-        _focusPassword.unfocus();
+        //_focusEmail.unfocus_focusPassword.unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -77,9 +92,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.black,
                             ),
                             child: TextFormField(
-                              controller: _nameTextController,
+                              controller: controller.nameTextController,
                               focusNode: _focusName,
-                              obscureText: true,
+                              obscureText: false,
                               validator: (value) => Validator.validateName(
                                 name: value,
                               ),
@@ -142,9 +157,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.black,
                             ),
                             child: TextFormField(
-                              controller: _emailTextController,
+                              controller: controller.emailTextController,
                               focusNode: _focusEmail,
-                              obscureText: true,
+                              obscureText: false,
                               validator: (value) => Validator.validateEmail(
                                 email: value,
                               ),
@@ -207,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.black,
                             ),
                             child: TextFormField(
-                              controller: _passwordTextController,
+                              controller: controller.passwordTextController,
                               focusNode: _focusPassword,
                               obscureText: true,
                               validator: (value) => Validator.validatePassword(
@@ -232,24 +247,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-                      // TextFormField(
-                      //   controller: _passwordTextController,
-                      //   focusNode: _focusPassword,
-                      //   obscureText: true,
-                      //   validator: (value) => Validator.validatePassword(
-                      //     password: value,
-                      //   ),
-                      //   decoration: InputDecoration(
-                      //     hintText: "Password",
-                      //     errorBorder: UnderlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(6.0),
-                      //       borderSide: BorderSide(
-                      //         color: Colors.red,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+
                       SizedBox(height: 44.0),
+
+
+                      TextButton(
+                          onPressed: () {
+                            // Navigate to the MapSample screen using GetX
+                            Get.to(() => MapSample()); // Use the builder function
+                            lat=lt!;
+
+                          },
+                          child: Text('Select Location')
+                      ),
+                      SizedBox(height: 44.0),
+
+                      TextButton(
+                          onPressed: () {
+                            // Navigate to the MapSample screen using GetX
+                            Get.to(() => blood()); // Use the builder function
+                            lat=lt!;
+
+                          },
+                          child: Text('Select Location')
+                      ),
+
+
                       _isProcessing
                           ? CircularProgressIndicator()
                           : Row(
@@ -265,12 +288,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           .validate()) {
                                         User? user = await FirebaseAuthHelper
                                             .registerUsingEmailPassword(
-                                          name: _nameTextController.text,
-                                          email: _emailTextController.text,
+                                          name: controller.nameTextController.text,
+                                          email: controller.emailTextController.text,
                                           password:
-                                              _passwordTextController.text,
-                                        );
+                                              controller.passwordTextController.text,
 
+                                        );
+                                        us=user;
+                                        //LatLng lat=LatLng(0, 0);
+                                        lat=controller.lt;
+                                        bl=controller.Blood.text;
+                                        if(bl==null){
+                                          bl='01';
+                                        }
+                                        try{
+                                          yoo=await fetchUserIds();
+                                          print(yoo);
+                                          print('daddjakjwakndajdandkamdkaj');
+                                          controller.people=yoo;
+                                          await controller.peopleTodoner();
+                                          print('jdamadmadnkanda');
+                                          print(controller.items.length);
+                                        }catch(e){
+                                          print('ERROR:$e');
+                                        }
+
+                                        try{
+                                          storeData('users', controller.nameTextController.text, user!.uid, controller.emailTextController.text, controller.passwordTextController.text, lat,bl,yoo);
+                                          print('fkakddamd');
+                                        }catch(e){
+                                          print('Error getting it: $e');
+                                        }
+                                        controller.Cuser=controller.nameTextController.text;
+                                        controller.CuserPic='images/flutter.png';
                                         setState(() {
                                           _isProcessing = false;
                                         });

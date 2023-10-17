@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "744569501257",
-    "project_id": "authapp-ac2ed",
-    "storage_bucket": "authapp-ac2ed.appspot.com"
+    "project_number": "622888866080",
+    "project_id": "putki-d25e9",
+    "storage_bucket": "putki-d25e9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:744569501257:android:d17d42b23a7b0ca6a6f198",
+        "mobilesdk_app_id": "1:622888866080:android:3c41a2dd4279442f704745",
         "android_client_info": {
           "package_name": "com.example.auth_app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "744569501257-fpu2sqh4ct2q7nqp1dp543offfnv5uff.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBuJH3YhGs2MQaX-B4CbJnHcMQbJCxY7AQ"
+          "current_key": "AIzaSyADNa3afrGmOZ-VSFTr0T7J8wtK_4VxnJo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "744569501257-fpu2sqh4ct2q7nqp1dp543offfnv5uff.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
