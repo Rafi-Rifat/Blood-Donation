@@ -1,0 +1,42 @@
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/screens/signup_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class blood extends StatefulWidget {
+  const blood({super.key});
+
+  @override
+  State<blood> createState() => _bloodState();
+}
+
+class _bloodState extends State<blood> {
+  Controller cont=Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('select your blood'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+       TextFormField(
+      controller: cont.Blood,
+        //focusNode: _focusEmail,
+        obscureText: false,
+       ),
+          TextButton(
+              onPressed: (){
+                Get.to(() => SignUpScreen());
+              },
+              child: Text('import blood')
+          )
+        ],
+
+      ),
+    );
+  }
+}

@@ -80,7 +80,11 @@
 //   }
 // }
 
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/helper/map.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'posts.dart';
 
 class RequestPage extends StatefulWidget {
@@ -89,13 +93,15 @@ class RequestPage extends StatefulWidget {
 }
 
 class _RequestPageState extends State<RequestPage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController contactNumberController = TextEditingController();
-  final TextEditingController bloodGroupController = TextEditingController();
-  final TextEditingController notesController = TextEditingController();
+  // final TextEditingController nameController = TextEditingController();
+  // final TextEditingController contactNumberController = TextEditingController();
+  // final TextEditingController bloodGroupController = TextEditingController();
+  // final TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final Controller cont=Get.find();
+    LatLng yoo=LatLng(0, 0);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Blood Request Form'),
@@ -114,41 +120,51 @@ class _RequestPageState extends State<RequestPage> {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: nameController,
+              controller: cont.BRequest,
               decoration: const InputDecoration(
                 labelText: 'Your Name',
               ),
             ),
             const SizedBox(height: 10),
-            TextField(
-              controller: contactNumberController,
-              decoration: const InputDecoration(
-                labelText: 'Contact Number',
-              ),
+            TextButton(
+                onPressed:(){
+
+                  cont.pu=true;
+                  Get.to(MapSample());
+                  yoo=cont.lt;
+
+            },
+                child: Text('Select Location'),
             ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: bloodGroupController,
-              decoration: const InputDecoration(
-                labelText: 'Blood Group',
-              ),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: notesController,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Address',
-              ),
-            ),
-            const SizedBox(height: 20),
+            // TextField(
+            //   controller: contactNumberController,
+            //   decoration: const InputDecoration(
+            //     labelText: 'Contact Number',
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
+            // TextField(
+            //   controller: bloodGroupController,
+            //   decoration: const InputDecoration(
+            //     labelText: 'Blood Group',
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
+            // TextField(
+            //   controller: notesController,
+            //   maxLines: 3,
+            //   decoration: const InputDecoration(
+            //     labelText: 'Address',
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Get the text from the TextFields using the controllers
-                String name = nameController.text;
-                String contactNumber = contactNumberController.text;
-                String bloodGroup = bloodGroupController.text;
-                String additionalNotes = notesController.text;
+                String name = cont.Blood.text;
+                // String contactNumber = contactNumberController.text;
+                // String bloodGroup = bloodGroupController.text;
+                // String additionalNotes = notesController.text;
 
                 // Navigate to posts.dart and pass the information as arguments
                 Navigator.push(
@@ -156,9 +172,9 @@ class _RequestPageState extends State<RequestPage> {
                   MaterialPageRoute(
                     builder: (context) => PostsPage(
                       name: name,
-                      contactNumber: contactNumber,
-                      bloodGroup: bloodGroup,
-                      additionalNotes: additionalNotes,
+                      contactNumber: 'y00000',
+                      bloodGroup: 'ypppppp',
+                      additionalNotes: 'kyoooo',
                     ),
                   ),
                 );

@@ -1,8 +1,13 @@
+import 'package:auth_app/GET/controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app/screens/home_screen.dart';
 import 'package:auth_app/screens/signup_screen.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../Databases/MakeUserList.dart';
 import '../helper/firebase_auth.dart';
 import '../helper/validator.dart';
 
@@ -12,6 +17,7 @@ import '../helper/validator.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
+
   const LoginScreen({super.key});
 
   @override
@@ -20,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final Controller cont=Get.find();
   // Future<void> _handleSignIn() async {
   //   try {
   //     final GoogleSignInAccount? googleSignInAccount =
@@ -238,6 +245,40 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   _passwordTextController.text,
                                             );
+                                            cont.CusID=user!.uid;
+                                            try {
+                                              double l=0,m=0;
+                                              CollectionReference usersCollection = FirebaseFirestore
+                                                  .instance.collection('users');
+                                              QuerySnapshot querySnapshot = await usersCollection
+                                                  .where('userId',
+                                                  isEqualTo: cont.CusID).get();
+                                              if (querySnapshot.docs
+                                                  .isNotEmpty) {
+                                                DocumentSnapshot document = querySnapshot
+                                                    .docs.first;
+                                                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
+                                                l=userData['lat'];
+                                                m=userData['lang'];
+                                              }
+                                              print('                 DK                                 DK                        DK        ');
+                                              cont.lt=LatLng(l, m);
+                                              print(l);
+                                            }catch (e) {
+                                              print('Error fetching user data: $e');
+                                              throw e;
+                                            }
+                                            try{
+                                              cont.people=await fetchUserIds();
+                                              //print(yoo);
+                                              print('daddjakjwakndajdandkamdkaj');
+                                              //controller.people=yoo;
+                                              await cont.peopleTodoner();
+                                              // print('jdamadmadnkanda');
+                                              // print(controller.items.length);
+                                            }catch(e){
+                                              print('ERROR:$e');
+                                            }
 
                                             setState(() {
                                               _isProcessing = false;
