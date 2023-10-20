@@ -110,6 +110,25 @@ class _ChatScreenState extends State<ChatScreen> {
                   icon: Icon(Icons.send),
                   onPressed: () async {
 
+                    try{
+                      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users').doc(widget.FId).collection('chat');
+                      QuerySnapshot querySnapshot = await usersCollection.where('chatid', isEqualTo: cont.CusID).get();
+
+                      if (querySnapshot.docs.isNotEmpty) {
+                        // There should be only one document with a matching user ID
+                        DocumentSnapshot document = querySnapshot.docs.first;
+                        // Access document data using document.data() as a Map
+                        Map<String, dynamic> userData = document.data() as Map<String, dynamic>;
+                        if (userData.containsKey('chat')) {
+                          massageforhim = List<String>.from(userData['chat']);
+                        }
+                        //cont.chat = massage;
+                      }
+
+                    }catch(e){
+
+                    }
+
                     String message = messageController.text;
                     if (message.isNotEmpty) {
                       sendMessage(message);
