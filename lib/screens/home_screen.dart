@@ -55,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           'Blood Donation',
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+       backgroundColor:Color.fromARGB(255, 2, 86, 86) ,
+       elevation: 0,
+
       ),
       drawer: Drawer(
         child: ListView(
@@ -238,6 +240,7 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -255,7 +258,7 @@ class HomeContent extends StatelessWidget {
             children: <Widget>[
               CarouselSlider(
                 items: [
-                  Image.asset('images/blood_donation-removebg.png'),
+                //  Image.asset('images/blood_donation-removebg.png'),
                   Image.asset('images/blood1-removebg-preview.png'),
                   Image.asset('images/blood2-removebg-preview.png'),
                   Image.asset('images/blood4-removebg-preview.png'),
