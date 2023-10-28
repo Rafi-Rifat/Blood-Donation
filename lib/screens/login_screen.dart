@@ -95,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          backgroundColor:Colors.grey,
           title: Text('Blood Donation'),
+          elevation: 0,
           centerTitle: true,
         ),
         body: FutureBuilder(
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height / 3,
-                      child: Image.asset('images/blood.jpg'),
+                      child: Image.asset('images/bloodb.png'),
                     ),
                     const SizedBox(height: 8.0),
                     Form(
@@ -124,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   child: const Text(
                                     "Email",
                                     style: TextStyle(
@@ -139,12 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                 ),
                                 child: TextFormField(
                                   controller: _emailTextController,
                                   focusNode: _focusEmail,
-                                  obscureText: true,
+                                  obscureText: false,
                                   validator: (value) => Validator.validateEmail(
                                     email: value,
                                   ),
@@ -175,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   child: const Text(
                                     "Password",
                                     style: TextStyle(
@@ -190,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                 ),
                                 child: TextFormField(
                                   controller: _passwordTextController,
@@ -365,33 +366,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                           builder: (context) =>
                                               SignUpScreen()));
                                 },
-                                child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.white38,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    
+                                    width: 60,
+                                    height: 60,
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white38,
+                                    ),
+                                    child: Image.asset('images/g.png'),
                                   ),
-                                  child: Image.asset('images/google.png'),
                                 ),
                               ),
                               const SizedBox(width: 50),
-                              GestureDetector(
-                                onTap: () {
-                                  // _signInWithGoogle();
-                                },
-                                child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.white38,
-                                  ),
-                                  child: Image.asset('images/facebook.png'),
-                                ),
-                              ),
+                    
                             ],
                           )
                         ],
