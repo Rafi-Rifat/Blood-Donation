@@ -55,12 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: const Text(
           'Blood Donation',
-        ).animate(
-
-        ).tint(color: Colors.white).then(delay: 1000. ms).shake(),
-       backgroundColor:Color.fromARGB(255, 2, 86, 86) ,
-       elevation: 0,
-
+        ).animate().tint(color: Colors.white).then(delay: 1000.ms).shake(),
+        backgroundColor: Color.fromARGB(255, 2, 86, 86),
+        elevation: 0,
       ),
       drawer: Drawer(
         child: ListView(
@@ -126,6 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(
                               builder: (context) => LoginScreen(),
                             ),
+                          );
+                          Column(
+                            children: [
+                              Text("Hello"),
+                              Text("World"),
+                              Text("Goodbye")
+                            ].animate(interval: 4000.ms).fade(duration: 3000.ms),
                           );
                         },
                         child: const Text('Sign out'),
@@ -243,7 +247,6 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -261,7 +264,7 @@ class HomeContent extends StatelessWidget {
             children: <Widget>[
               CarouselSlider(
                 items: [
-                //  Image.asset('images/blood_donation-removebg.png'),
+                  //  Image.asset('images/blood_donation-removebg.png'),
                   Image.asset('images/blood1-removebg-preview.png'),
                   Image.asset('images/blood2-removebg-preview.png'),
                   Image.asset('images/blood4-removebg-preview.png'),
