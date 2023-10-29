@@ -6,6 +6,7 @@ import 'package:auth_app/screens/login_screen.dart';
 import 'request.dart';
 import 'update_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -54,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: const Text(
           'Blood Donation',
-        ),
+        ).animate(
+
+        ).tint(color: Colors.white).then(delay: 1000. ms).shake(),
        backgroundColor:Color.fromARGB(255, 2, 86, 86) ,
        elevation: 0,
 

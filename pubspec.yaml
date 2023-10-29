@@ -47,6 +47,7 @@ dependencies:
   cloud_firestore: ^4.9.2
   get: ^4.6.6
   collection: ^1.17.2
+  flutter_animate: ^4.2.0+1
 
 dev_dependencies:
   flutter_test:
