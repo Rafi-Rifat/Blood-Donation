@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "Email",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      // fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                     ),
                                   ),
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   validator: (value) => Validator.validateEmail(
                                     email: value,
                                   ),
-                                  style: const TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
                                     hintText: "Email",
                                     enabledBorder: UnderlineInputBorder(
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "Password",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      // fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                     ),
                                   ),
