@@ -354,7 +354,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.white38,
                                     ),
-                                    child: Image.asset('images/g.png'),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset('images/g.png'),
+                                    ),
                                   ),
                                 ),
                               ),
