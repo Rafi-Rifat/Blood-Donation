@@ -17,7 +17,6 @@ import '../helper/validator.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
-
   const LoginScreen({super.key});
 
   @override
@@ -26,39 +25,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Controller cont=Get.find();
-  // Future<void> _handleSignIn() async {
-  //   try {
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await _googleSignIn.signIn();
-  //     if (googleSignInAccount != null) {
-  //       // Successful sign-in, you can now use googleSignInAccount to access user information.
-  //     }
-  //   } catch (error) {
-  //     // Handle sign-in error.
-  //   }
-  // }
-
-  // Future<void> _signInWithGoogle() async {
-  //   try {
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await _googleSignIn.signIn();
-  //     if (googleSignInAccount != null) {
-  //       final GoogleSignInAuthentication googleSignInAuth =
-  //           await googleSignInAccount.authentication;
-  //       final AuthCredential credential = GoogleAuthProvider.credential(
-  //         accessToken: googleSignInAuth.accessToken,
-  //         idToken: googleSignInAuth.idToken,
-  //       );
-  //       final UserCredential authResult =
-  //           await FirebaseAuth.instance.signInWithCredential(credential);
-  //       final User? user = authResult.user;
-  //       // Now you can use 'user' to interact with Firebase services.
-  //     }
-  //   } catch (error) {
-  //     // Handle sign-in error.
-  //   }
-  // }
+  final Controller cont = Get.find();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -86,6 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return firebaseApp;
   }
 
+// backgroundColor:Colors.lightGreen[100] ,
+// backgroundColor: Colors.lime.withAlpha(100)
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -94,9 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor:Colors.grey,
-          title: Text('Blood Donation'),
+          backgroundColor: Colors.white,
+          // title: const Text('Blood Donation'),
           elevation: 0,
           centerTitle: true,
         ),
@@ -112,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height / 3,
-                      child: Image.asset('images/bloodb.png'),
+                      child: Image.asset('images/RedDrops.png'),
                     ),
                     const SizedBox(height: 8.0),
                     Form(
@@ -130,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "Email",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      // fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                     ),
                                   ),
@@ -140,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                 ),
                                 child: TextFormField(
                                   controller: _emailTextController,
@@ -149,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   validator: (value) => Validator.validateEmail(
                                     email: value,
                                   ),
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.black),
                                   decoration: const InputDecoration(
                                     hintText: "Email",
                                     enabledBorder: UnderlineInputBorder(
@@ -181,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "Password",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      // fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                     ),
                                   ),
@@ -191,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                 ),
                                 child: TextFormField(
                                   controller: _passwordTextController,
@@ -246,38 +216,48 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   _passwordTextController.text,
                                             );
-                                            cont.CusID=user!.uid;
+                                            cont.CusID = user!.uid;
                                             try {
-                                              double l=0,m=0;
-                                              CollectionReference usersCollection = FirebaseFirestore
-                                                  .instance.collection('users');
-                                              QuerySnapshot querySnapshot = await usersCollection
-                                                  .where('userId',
-                                                  isEqualTo: cont.CusID).get();
-                                              if (querySnapshot.docs
-                                                  .isNotEmpty) {
-                                                DocumentSnapshot document = querySnapshot
-                                                    .docs.first;
-                                                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                                                l=userData['lat'];
-                                                m=userData['lang'];
+                                              double l = 0, m = 0;
+                                              CollectionReference
+                                                  usersCollection =
+                                                  FirebaseFirestore.instance
+                                                      .collection('users');
+                                              QuerySnapshot querySnapshot =
+                                                  await usersCollection
+                                                      .where('userId',
+                                                          isEqualTo: cont.CusID)
+                                                      .get();
+                                              if (querySnapshot
+                                                  .docs.isNotEmpty) {
+                                                DocumentSnapshot document =
+                                                    querySnapshot.docs.first;
+                                                Map<String, dynamic> userData =
+                                                    (await document.data())
+                                                        as Map<String, dynamic>;
+                                                l = userData['lat'];
+                                                m = userData['lang'];
                                               }
-                                              print('                 DK                                 DK                        DK        ');
-                                              cont.lt=LatLng(l, m);
+                                              print(
+                                                  '                 DK                                 DK                        DK        ');
+                                              cont.lt = LatLng(l, m);
                                               print(l);
-                                            }catch (e) {
-                                              print('Error fetching user data: $e');
+                                            } catch (e) {
+                                              print(
+                                                  'Error fetching user data: $e');
                                               throw e;
                                             }
-                                            try{
-                                              cont.people=await fetchUserIds();
+                                            try {
+                                              cont.people =
+                                                  await fetchUserIds();
                                               //print(yoo);
-                                              print('daddjakjwakndajdandkamdkaj');
+                                              print(
+                                                  'daddjakjwakndajdandkamdkaj');
                                               //controller.people=yoo;
                                               await cont.peopleTodoner();
                                               // print('jdamadmadnkanda');
                                               // print(controller.items.length);
-                                            }catch(e){
+                                            } catch (e) {
                                               print('ERROR:$e');
                                             }
 
@@ -296,21 +276,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                             }
                                           }
                                         },
-                                        child: const Text(
-                                          'Sign In',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
                                         style: ButtonStyle(
                                             backgroundColor:
-                                                MaterialStateProperty
-                                                    .all<Color>(Color.fromARGB(
-                                                        255, 0, 0, 0)),
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.deepOrange),
                                             shape: MaterialStateProperty.all<
                                                     RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(18.0),
                                             ))),
+                                        child: const Text(
+                                          'Sign In',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(width: 24.0),
@@ -324,21 +303,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           );
                                         },
-                                        child: Text(
-                                          'SignUp',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
                                         style: ButtonStyle(
                                             backgroundColor:
-                                                MaterialStateProperty
-                                                    .all<Color>(Color.fromARGB(
-                                                        255, 0, 0, 0)),
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.deepOrange),
                                             shape: MaterialStateProperty.all<
                                                     RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(18.0),
                                             ))),
+                                        child: const Text(
+                                          'SignUp',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -369,7 +347,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Container(
-                                    
                                     width: 60,
                                     height: 60,
                                     padding: const EdgeInsets.all(5),
@@ -382,7 +359,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(width: 50),
-                    
                             ],
                           )
                         ],
