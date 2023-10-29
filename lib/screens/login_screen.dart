@@ -11,8 +11,6 @@ import '../Databases/MakeUserList.dart';
 import '../helper/firebase_auth.dart';
 import '../helper/validator.dart';
 
-// function to implement the google signin
-
 // creating firebase instance
 final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -53,8 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return firebaseApp;
   }
 
-// backgroundColor:Colors.lightGreen[100] ,
-// backgroundColor: Colors.lime.withAlpha(100)
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -333,37 +329,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SignUpScreen()));
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Container(
-                                    width: 60,
-                                    height: 60,
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.white38,
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Image.asset('images/g.png'),
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                              child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: 60,
+                              height: 60,
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white38,
                               ),
-                              const SizedBox(width: 50),
-                            ],
-                          )
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Image.asset('images/g.png'),
+                              ),
+                            ),
+                          )),
                         ],
                       ),
                     )
