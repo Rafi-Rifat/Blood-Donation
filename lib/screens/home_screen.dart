@@ -25,14 +25,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late User _currentUser;
   late int _selectedIndex;
-  final Controller cont=Get.find();
+  final Controller cont = Get.find();
 
   @override
   void initState() {
     _currentUser = widget.user;
-    _selectedIndex=cont.homeIndex;
+    _selectedIndex = cont.homeIndex;
     super.initState();
-
   }
 
   // Define your pages for each bottom navigation tab
@@ -133,7 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text("Hello"),
                               Text("World"),
                               Text("Goodbye")
-                            ].animate(interval: 4000.ms).fade(duration: 3000.ms),
+                            ]
+                                .animate(interval: 4000.ms)
+                                .fade(duration: 3000.ms),
                           );
                         },
                         child: const Text('Sign out'),
@@ -236,11 +237,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 //
                 // }
 
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
+                      builder: (context) =>
+                          ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
                 );
               },
             ),
@@ -263,65 +264,64 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) async {
-
-          if(index==3){
+          if (index == 3) {
             print('on      tap');
-            try{
-              CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-              QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
+            try {
+              CollectionReference usersCollection =
+                  FirebaseFirestore.instance.collection('users');
+              QuerySnapshot querySnapshot = await usersCollection
+                  .where('userId', isEqualTo: cont.CusID)
+                  .get();
               if (querySnapshot.docs.isNotEmpty) {
                 DocumentSnapshot document = querySnapshot.docs.first;
-                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                  if(userData['NeedToAdd']!=null){
-                  cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
-                  List<String> pl=[];
+                Map<String, dynamic> userData =
+                    (await document.data()) as Map<String, dynamic>;
+                if (userData['NeedToAdd'] != null) {
+                  cont.NeedToAdd = List<String>.from(userData['NeedToAdd']);
+                  List<String> pl = [];
                   pl.add('1');
-                  await usersCollection.doc(cont.CusID).set({
-                  'NeedToAdd':pl
-                  },SetOptions(merge: true));
-                  }
-                  }
-
-                  }catch(e){
-                  print('Field to take NeedToAdd $e');
-                  }
-            for(var i in cont.NeedToAdd){
-              int index=cont.ChatPerson.indexOf(i);
-              String name='';
-              if(index==-1&&i!='1'){
-                try{
-                  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-                  QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
+                  await usersCollection
+                      .doc(cont.CusID)
+                      .set({'NeedToAdd': pl}, SetOptions(merge: true));
+                }
+              }
+            } catch (e) {
+              print('Field to take NeedToAdd $e');
+            }
+            for (var i in cont.NeedToAdd) {
+              int index = cont.ChatPerson.indexOf(i);
+              String name = '';
+              if (index == -1 && i != '1') {
+                try {
+                  CollectionReference usersCollection =
+                      FirebaseFirestore.instance.collection('users');
+                  QuerySnapshot querySnapshot =
+                      await usersCollection.where('userId', isEqualTo: i).get();
                   if (querySnapshot.docs.isNotEmpty) {
                     DocumentSnapshot document = querySnapshot.docs.first;
-                    Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                    name=userData['name'];
+                    Map<String, dynamic> userData =
+                        (await document.data()) as Map<String, dynamic>;
+                    name = userData['name'];
                   }
-
-
-
-                }catch(e){
+                } catch (e) {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name);
+                DonerData d = DonerData(i, name);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');
-              }
-              else if(index!=-1){
-                DonerData d=cont.items1[index];
+              } else if (index != -1) {
+                DonerData d = cont.items1[index];
                 cont.items1.removeAt(index);
                 cont.items1.insert(0, d);
                 print('in home chat');
               }
-
             }
             print(cont.ChatPerson);
-
-                  }
+          }
           setState(() {
-            _selectedIndex=index;
+            _selectedIndex = index;
           });
         },
         items: const [
@@ -360,58 +360,38 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 2, 67, 76),
-              Color.fromARGB(255, 246, 245, 243)
-            ],
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CarouselSlider(
-                items: [
-                  //  Image.asset('images/blood_donation-removebg.png'),
-                  Image.asset('images/blood1-removebg-preview.png'),
-                  Image.asset('images/blood2-removebg-preview.png'),
-                  Image.asset('images/blood4-removebg-preview.png'),
-                ],
-                options: CarouselOptions(
-                  height: 200.0, // Adjust the height as needed.
-                  enableInfiniteScroll: true,
-                  autoPlay: true,
-                ),
-              ),
-              SizedBox(height: 200.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Add functionality to navigate to the blood donation request page.
-                },
-                child: const Text('Donate Blood'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Add functionality to navigate to the blood donation request list page.
-                },
-                child: Text('Find Blood Donors'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+        // body: Container(
+        //   decoration: const BoxDecoration(
+        //     gradient: LinearGradient(
+        //       begin: Alignment.topCenter,
+        //       end: Alignment.bottomCenter,
+        //       colors: [
+        //         Color.fromARGB(255, 2, 67, 76),
+        //         Color.fromARGB(255, 246, 245, 243)
+        //       ],
+        //     ),
+        //   ),
+        //   child: Center(
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: <Widget>[
+        //         CarouselSlider(
+        //           items: [
+        //             //  Image.asset('images/blood_donation-removebg.png'),
+        //             Image.asset('images/blood1-removebg-preview.png'),
+        //             Image.asset('images/blood2-removebg-preview.png'),
+        //             Image.asset('images/blood4-removebg-preview.png'),
+        //           ],
+        //           options: CarouselOptions(
+        //             height: 200.0, // Adjust the height as needed.
+        //             enableInfiniteScroll: true,
+        //             autoPlay: true,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        );
   }
 }
