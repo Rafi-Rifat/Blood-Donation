@@ -22,14 +22,15 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _registerFormKey = GlobalKey<FormState>();
 
-  final Controller controller = Get.find();
+  final Controller controller=Get.find();
 
-  late List<Pair<String, double>> yoo;
+
+  late List<Pair<String,double>> yoo;
   // final _nameTextController = TextEditingController();
   // final _emailTextController = TextEditingController();
   // final _passwordTextController = TextEditingController();
-  late String bl = '01';
-  LatLng lat = LatLng(0, 0);
+  late String bl='01';
+  LatLng lat=LatLng(0, 0);
 
   final _focusName = FocusNode();
   final _focusEmail = FocusNode();
@@ -45,14 +46,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //_focusEmail.unfocus_focusPassword.unfocus();
       },
       child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Color.fromARGB(255, 4, 118, 124),
-        //   title: Text('Create Account'),
-        //   centerTitle: true,
-        // ),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 4, 118, 124),
+          title: Text('Create Account'),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(
-          // padding: const EdgeInsets.all(24.0),
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 30),
+          padding: const EdgeInsets.all(24.0),
+          // padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
 
           child: Center(
             child: Column(
@@ -61,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Container(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height / 3,
-                  child: Image.asset('images/RedDrops.png'),
+                  child: Image.asset('images/techn.png'),
                 ),
                 const SizedBox(height: 8.0),
                 Form(
@@ -103,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -116,7 +117,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-
+                      // TextFormField(
+                      //   controller: _nameTextController,
+                      //   focusNode: _focusName,
+                      //   validator: (value) => Validator.validateName(
+                      //     name: value,
+                      //   ),
+                      //   decoration: InputDecoration(
+                      //     hintText: "Name",
+                      //     errorBorder: UnderlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(6.0),
+                      //       borderSide: BorderSide(
+                      //         color: Colors.red,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(height: 12.0),
                       Column(
                         children: [
@@ -153,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -218,7 +234,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -232,167 +248,122 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       ),
 
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 44.0),
 
-                      // TextButton(
-                      //     onPressed: () {
-                      //       // Navigate to the MapSample screen using GetX
-                      //       Get.to(
-                      //           () => MapSample()); // Use the builder function
-                      //       lat = lt!;
-                      //     },
-                      //     child: Text('Select Location')),
-                      // SizedBox(height: 44.0),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.location_pin,
-                                    color: Colors.yellow,
-                                    size: 30.0,
-                                  ),
-                                  onPressed: () {
-                                    // Navigate to the MapSample screen using GetX
-                                    Get.to(() =>
-                                        MapSample()); // Use the builder function
-                                    lat = lt!;
-                                  },
-                                ),
-                                Text('Select your location'),
-                              ],
-                            ),
-                            SizedBox(width: 50),
-                            TextButton(
-                                onPressed: () {
-                                  // Navigate to the MapSample screen using GetX
-                                  Get.to(() =>
-                                      blood()); // Use the builder function
-                                  lat = lt!;
-                                },
-                                child: Text('Blood Group')),
-                          ],
-                        ),
+
+                      TextButton(
+                          onPressed: () {
+                            // Navigate to the MapSample screen using GetX
+                            Get.to(() => MapSample()); // Use the builder function
+                            lat=lt!;
+
+                          },
+                          child: Text('Select Location')
                       ),
-                      // Text('Select your location'),
-                      SizedBox(height: 14.0),
+                      SizedBox(height: 44.0),
 
-                      // TextButton(
-                      //     onPressed: () {
-                      //       // Navigate to the MapSample screen using GetX
-                      //       Get.to(() => blood()); // Use the builder function
-                      //       lat = lt!;
-                      //     },
-                      //     child: Text('Blood Group')),
+                      TextButton(
+                          onPressed: () {
+                            // Navigate to the MapSample screen using GetX
+                            Get.to(() => blood()); // Use the builder function
+                            lat=lt!;
+
+                          },
+                          child: Text('Select Location')
+                      ),
+
 
                       _isProcessing
                           ? CircularProgressIndicator()
                           : Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  _isProcessing = true;
-                                });
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      setState(() {
+                                        _isProcessing = true;
+                                      });
 
-                                if (_registerFormKey.currentState!
-                                    .validate()) {
-                                  User? user = await FirebaseAuthHelper
-                                      .registerUsingEmailPassword(
-                                    name: controller
-                                        .nameTextController.text,
-                                    email: controller
-                                        .emailTextController.text,
-                                    password: controller
-                                        .passwordTextController.text,
-                                  );
-                                  us = user;
-                                  //LatLng lat=LatLng(0, 0);
-                                  lat = controller.lt;
-                                  bl = controller.Blood.text;
-                                  if (bl == null) {
-                                    bl = '01';
-                                  }
-                                  try {
-                                    yoo = await fetchUserIds();
-                                    print(yoo);
-                                    print('daddjakjwakndajdandkamdkaj');
-                                    //controller.people=yoo;
-                                    await controller.peopleTodoner();
-                                    print('jdamadmadnkanda');
-                                    print(controller.items.length);
-                                  } catch (e) {
-                                    print('ERROR:$e');
-                                  }
-                                  controller.Cuser1=us!;
-                                  try {
-                                    storeData(
-                                        'users',
-                                        controller
-                                            .nameTextController.text,
-                                        user!.uid,
-                                        controller
-                                            .emailTextController.text,
-                                        controller
-                                            .passwordTextController.text,
-                                        lat,
-                                        bl,
-                                        yoo);
-                                    print('fkakddamd');
-                                  } catch (e) {
-                                    print('Error getting it: $e');
-                                  }
-                                  controller.Cuser =
-                                      controller.nameTextController.text;
-                                  controller.CuserPic =
-                                  'images/flutter.png';
-                                  setState(() {
-                                    _isProcessing = false;
-                                  });
+                                      if (_registerFormKey.currentState!
+                                          .validate()) {
+                                        User? user = await FirebaseAuthHelper
+                                            .registerUsingEmailPassword(
+                                          name: controller.nameTextController.text,
+                                          email: controller.emailTextController.text,
+                                          password:
+                                              controller.passwordTextController.text,
 
-                                  if (user != null) {
-                                    Navigator.of(context)
-                                        .pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomeScreen(user: user),
-                                      ),
-                                      ModalRoute.withName('/'),
-                                    );
-                                  }
-                                } else {
-                                  setState(() {
-                                    _isProcessing = false;
-                                  });
-                                }
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.blue),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(18.0),
-                                      ))),
-                              // style: ButtonStyle(
-                              //   backgroundColor:
-                              //       MaterialStateProperty.all(
-                              //           Color.fromARGB(255, 4, 118, 124)),
-                              // ),
-                            ),
-                          ),
-                        ],
-                      )
+                                        );
+                                        us=user;
+                                        //LatLng lat=LatLng(0, 0);
+                                        lat=controller.lt;
+                                        bl=controller.Blood.text;
+                                        if(bl==null){
+                                          bl='01';
+                                        }
+                                        try{
+                                          yoo=await fetchUserIds();
+                                          print(yoo);
+                                          print('daddjakjwakndajdandkamdkaj');
+                                          //controller.people=yoo;
+                                          await controller.peopleTodoner();
+                                          print('jdamadmadnkanda');
+                                          print(controller.items.length);
+                                        }catch(e){
+                                          print('ERROR:$e');
+                                        }
+
+                                        try{
+                                          storeData('users', controller.nameTextController.text, user!.uid, controller.emailTextController.text, controller.passwordTextController.text, lat,bl,yoo);
+                                          print('fkakddamd');
+                                        }catch(e){
+                                          print('Error getting it: $e');
+                                        }
+                                        controller.Cuser=controller.nameTextController.text;
+                                        controller.CuserPic='images/flutter.png';
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
+
+                                        if (user != null) {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen(user: user),
+                                            ),
+                                            ModalRoute.withName('/'),
+                                          );
+                                        }
+                                      } else {
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
+                                      }
+                                    },
+                                    child: Text(
+                                      'Sign up',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.black),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ))),
+                                    // style: ButtonStyle(
+                                    //   backgroundColor:
+                                    //       MaterialStateProperty.all(
+                                    //           Color.fromARGB(255, 4, 118, 124)),
+                                    // ),
+                                  ),
+                                ),
+                              ],
+                            )
                     ],
                   ),
                 )

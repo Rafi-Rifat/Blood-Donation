@@ -1,94 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'posts.dart';
-
-// class RequestPage extends StatelessWidget {
-//   final TextEditingController nameController = TextEditingController();
-//   final TextEditingController contactNumberController = TextEditingController();
-//   final TextEditingController bloodGroupController = TextEditingController();
-//   final TextEditingController notesController = TextEditingController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Blood Request Form'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'Please fill out the blood request form:',
-//               style: TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Your Name',
-//               ),
-//             ),
-//             SizedBox(height: 10),
-//             TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Contact Number',
-//               ),
-//             ),
-//             SizedBox(height: 10),
-//             TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Blood Group',
-//               ),
-//             ),
-//             SizedBox(height: 10),
-//             TextField(
-//               maxLines: 3,
-//               decoration: InputDecoration(
-//                 labelText: 'Address',
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // Get the text from the TextFields using the controllers
-//                 String name = nameController.text;
-//                 String contactNumber = contactNumberController.text;
-//                 String bloodGroup = bloodGroupController.text;
-//                 String additionalNotes = notesController.text;
-
-//                 // Navigate to posts.dart and pass the information as arguments
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => PostsPage(
-//                       name: name,
-//                       contactNumber: contactNumber,
-//                       bloodGroup: bloodGroup,
-//                       additionalNotes: additionalNotes,
-//                     ),
-//                   ),
-//                 );
-//               },
-//               child: Text('Submit'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:auth_app/GET/controller.dart';
 import 'package:auth_app/helper/map.dart';
-import 'package:auth_app/screens/home_screen.dart';
-import 'package:auth_app/screens/update_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../Databases/MakeUserList.dart';
 import 'posts.dart';
 
 class RequestPage extends StatefulWidget {
@@ -104,14 +18,13 @@ class _RequestPageState extends State<RequestPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Controller cont=Get.find();
-    LatLng yoo=LatLng(0, 0);
-    //User? user = FirebaseAuth.instance.currentUser;
+    final Controller cont = Get.find();
+    LatLng yoo = LatLng(0, 0);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blood Request Form'),
-      ),
-      body: Padding(
+      // appBar: AppBar(
+      //   title: const Text('Blood Request Form'),
+      // ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,58 +37,159 @@ class _RequestPageState extends State<RequestPage> {
               ),
             ),
             const SizedBox(height: 20),
+            const Text(
+              'Select your Blood Group',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'A+',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('A+'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'B+',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('B+'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'O+',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('O+'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'AB+',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('AB+'),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'A-',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('A-'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'B-',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('B-'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'O-',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('O-'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<String>(
+                          value: 'AB-',
+                          groupValue: cont.BRequest.text,
+                          onChanged: (value) {
+                            cont.BRequest.text = value!;
+                          },
+                        ),
+                        Text('AB-'),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             TextField(
               controller: cont.BRequest,
               decoration: const InputDecoration(
-                labelText: 'Your Name',
+                labelText: 'Your selected blood-group',
               ),
             ),
             const SizedBox(height: 10),
-            TextButton(
-                onPressed:() async {
-
-                  cont.pu=true;
-                  Get.to(MapSample());
-                  yoo=cont.lt;
-                  print(yoo.toString());
-
-
-            },
-                child: Text('Select Location'),
+            IconButton(
+              icon: Icon(
+                Icons.location_pin,
+                color: Colors.yellow,
+                size: 30.0,
+              ),
+              onPressed: () {
+                cont.pu = true;
+                Get.to(MapSample());
+                yoo = cont.lt;
+              },
             ),
-            // TextField(
-            //   controller: contactNumberController,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Contact Number',
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
-            // TextField(
-            //   controller: bloodGroupController,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Blood Group',
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
-            // TextField(
-            //   controller: notesController,
-            //   maxLines: 3,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Address',
-            //   ),
-            // ),
-            // const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                try{
-                  cont.people=await fetchUserIds1(cont.BRequest.text);
-                  await cont.peopleTodoner();
-                }catch(e){
-                  print('ERROR:$e');
-                }
-                cont.homeIndex=2;
-                //Get.offAll(UpdatePage(requestAccepted: true));
-                Get.offAll(()=>HomeScreen(user: cont.Cuser1));
+              onPressed: () {
+                // Get the text from the TextFields using the controllers
+                String name = cont.Blood.text;
+                // String contactNumber = contactNumberController.text;
+                // String bloodGroup = bloodGroupController.text;
+                // String additionalNotes = notesController.text;
+
+                // Navigate to posts.dart and pass the information as arguments
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PostsPage(
+                //       name: name,
+                //       contactNumber: 'y00000',
+                //       bloodGroup: 'ypppppp',
+                //       additionalNotes: 'kyoooo',
+                //     ),
+                //   ),
+                // );
               },
               child: Text('Submit'),
             ),

@@ -265,7 +265,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) async {
 
           if(index==3){
-            print(cont.ChatPerson);
             print('on      tap');
             try{
               CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
@@ -286,8 +285,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   }catch(e){
                   print('Field to take NeedToAdd $e');
                   }
-            // CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-            // QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
             for(var i in cont.NeedToAdd){
               int index=cont.ChatPerson.indexOf(i);
               String name='';
@@ -320,21 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
 
             }
-            try{
-              CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-              //QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
-              usersCollection.doc(cont.CusID).set({
-                'ChatPerson':cont.ChatPerson
-              },SetOptions(merge: true));
-
-            }catch(e){
-              print('REEOOOOO');
-            }
             print(cont.ChatPerson);
-
-            await cont.peopleTodoner1();
-
-            print(cont.items1.length);
 
                   }
           setState(() {
