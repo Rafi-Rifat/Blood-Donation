@@ -359,39 +359,6 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // body: Container(
-        //   decoration: const BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topCenter,
-        //       end: Alignment.bottomCenter,
-        //       colors: [
-        //         Color.fromARGB(255, 2, 67, 76),
-        //         Color.fromARGB(255, 246, 245, 243)
-        //       ],
-        //     ),
-        //   ),
-        //   child: Center(
-        //     child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         CarouselSlider(
-        //           items: [
-        //             //  Image.asset('images/blood_donation-removebg.png'),
-        //             Image.asset('images/blood1-removebg-preview.png'),
-        //             Image.asset('images/blood2-removebg-preview.png'),
-        //             Image.asset('images/blood4-removebg-preview.png'),
-        //           ],
-        //           options: CarouselOptions(
-        //             height: 200.0, // Adjust the height as needed.
-        //             enableInfiniteScroll: true,
-        //             autoPlay: true,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        );
+    return Scaffold();
   }
 }
