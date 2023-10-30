@@ -37,7 +37,7 @@ class _RequestPageState extends State<RequestPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'Select your Blood Group',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
