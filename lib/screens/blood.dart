@@ -12,7 +12,7 @@ class blood extends StatefulWidget {
 }
 
 class _bloodState extends State<blood> {
-  Controller cont=Get.find();
+  Controller cont = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +22,139 @@ class _bloodState extends State<blood> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:[
-       TextFormField(
-      controller: cont.Blood,
-        //focusNode: _focusEmail,
-        obscureText: false,
-       ),
+        children: [
+          // TextFormField(
+          //   controller: cont.Blood,
+          //   //focusNode: _focusEmail,
+          //   obscureText: false,
+          // ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'A+',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('A+'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'B+',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('B+'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'O+',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('O+'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'AB+',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('AB+'),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'A-',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('A-'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'B-',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('B-'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'O-',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('O-'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio<String>(
+                        value: 'AB-',
+                        groupValue: cont.Blood.text,
+                        onChanged: (value) {
+                          cont.BRequest.text = value!;
+                        },
+                      ),
+                      Text('AB-'),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // TextField(
+          //   controller: cont.BRequest,
+          //   decoration: const InputDecoration(
+          //     labelText: 'Your selected blood-group',
+          //   ),
+          // ),
+          TextFormField(
+            controller: cont.Blood,
+            //focusNode: _focusEmail,
+            obscureText: false,
+          ),
           TextButton(
-              onPressed: (){
+              onPressed: () {
                 Get.to(() => SignUpScreen());
               },
-              child: Text('import blood')
-          )
+              child: Text('import blood'))
         ],
-
       ),
     );
   }
 }
+//hk
