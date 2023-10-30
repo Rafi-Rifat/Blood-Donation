@@ -10,7 +10,7 @@ import 'GET/controller.dart';
 import 'screens/splash_screen.dart';
 
 void main() async {
-  final controller =Get.put(Controller());
+  final controller = Get.put(Controller());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User? user = FirebaseAuth.instance.currentUser;
@@ -18,9 +18,9 @@ void main() async {
   // If a user is authenticated, set the user's ID in your controller
   if (user != null) {
     controller.CusID = user.uid;
-    controller.Cuser1=user;
+    controller.Cuser1 = user;
   }
-  try{
+  try {
     //controller.people=await fetchUserIds();
     //print(yoo);
     print('daddjakjwakndajdandkamdkaj');
@@ -28,7 +28,7 @@ void main() async {
     await controller.peopleTodoner();
     // print('jdamadmadnkanda');
     // print(controller.items.length);
-  }catch(e){
+  } catch (e) {
     print('ERROR:$e');
   }
   runApp(const MyApp());
