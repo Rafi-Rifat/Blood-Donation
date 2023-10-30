@@ -1,4 +1,5 @@
 import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/screens/home_screen.dart';
 import 'package:auth_app/screens/request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,7 +74,8 @@ class MapSampleState extends State<MapSample> {
                 Get.to(SignUpScreen());
               }
               else{
-                Get.to(RequestPage());
+                cont.homeIndex=1;
+                Get.offAll(HomeScreen(user: cont.Cuser1));
               }
             },
             child: Text("Import Location"),

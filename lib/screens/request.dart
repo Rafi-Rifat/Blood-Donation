@@ -1,8 +1,10 @@
 import 'package:auth_app/GET/controller.dart';
 import 'package:auth_app/helper/map.dart';
+import 'package:auth_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../Databases/MakeUserList.dart';
 import 'posts.dart';
 
 class RequestPage extends StatefulWidget {
@@ -171,25 +173,16 @@ class _RequestPageState extends State<RequestPage> {
               },
             ),
             ElevatedButton(
-              onPressed: () {
-                // Get the text from the TextFields using the controllers
-                String name = cont.Blood.text;
-                // String contactNumber = contactNumberController.text;
-                // String bloodGroup = bloodGroupController.text;
-                // String additionalNotes = notesController.text;
-
-                // Navigate to posts.dart and pass the information as arguments
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => PostsPage(
-                //       name: name,
-                //       contactNumber: 'y00000',
-                //       bloodGroup: 'ypppppp',
-                //       additionalNotes: 'kyoooo',
-                //     ),
-                //   ),
-                // );
+              onPressed: () async {
+                try{
+                  cont.people=await fetchUserIds1(cont.BRequest.text);
+                  await cont.peopleTodoner();
+                }catch(e){
+                  print('ERROR:$e');
+                }
+                cont.homeIndex=2;
+                //Get.offAll(UpdatePage(requestAccepted: true));
+                Get.offAll(()=>HomeScreen(user: cont.Cuser1));
               },
               child: Text('Submit'),
             ),

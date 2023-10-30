@@ -17,7 +17,6 @@ import '../helper/validator.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
-
   const LoginScreen({super.key});
 
   @override
@@ -26,39 +25,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Controller cont=Get.find();
-  // Future<void> _handleSignIn() async {
-  //   try {
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await _googleSignIn.signIn();
-  //     if (googleSignInAccount != null) {
-  //       // Successful sign-in, you can now use googleSignInAccount to access user information.
-  //     }
-  //   } catch (error) {
-  //     // Handle sign-in error.
-  //   }
-  // }
-
-  // Future<void> _signInWithGoogle() async {
-  //   try {
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await _googleSignIn.signIn();
-  //     if (googleSignInAccount != null) {
-  //       final GoogleSignInAuthentication googleSignInAuth =
-  //           await googleSignInAccount.authentication;
-  //       final AuthCredential credential = GoogleAuthProvider.credential(
-  //         accessToken: googleSignInAuth.accessToken,
-  //         idToken: googleSignInAuth.idToken,
-  //       );
-  //       final UserCredential authResult =
-  //           await FirebaseAuth.instance.signInWithCredential(credential);
-  //       final User? user = authResult.user;
-  //       // Now you can use 'user' to interact with Firebase services.
-  //     }
-  //   } catch (error) {
-  //     // Handle sign-in error.
-  //   }
-  // }
+  final Controller cont = Get.find();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -94,24 +61,24 @@ class _LoginScreenState extends State<LoginScreen> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
-          title: Text('Blood Donation'),
-          centerTitle: true,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        //   title: Text('Blood Donation'),
+        //   centerTitle: true,
+        // ),
         body: FutureBuilder(
           future: _initializeFirebase(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 5),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 45),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height / 3,
-                      child: Image.asset('images/blood.jpg'),
+                      child: Image.asset('images/RedDrops.png'),
                     ),
                     const SizedBox(height: 8.0),
                     Form(
@@ -124,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   child: const Text(
                                     "Email",
                                     style: TextStyle(
@@ -144,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: TextFormField(
                                   controller: _emailTextController,
                                   focusNode: _focusEmail,
-                                  obscureText: true,
+                                  obscureText: false,
                                   validator: (value) => Validator.validateEmail(
                                     email: value,
                                   ),
@@ -163,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     hintStyle: TextStyle(
                                         color:
-                                            Color.fromARGB(255, 255, 255, 255)),
+                                        Color.fromARGB(255, 255, 255, 255)),
                                   ),
                                 ),
                               ),
@@ -175,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   child: const Text(
                                     "Password",
                                     style: TextStyle(
@@ -198,8 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   obscureText: true,
                                   validator: (value) =>
                                       Validator.validatePassword(
-                                    password: value,
-                                  ),
+                                        password: value,
+                                      ),
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
                                     hintText: "Password",
@@ -223,126 +190,133 @@ class _LoginScreenState extends State<LoginScreen> {
                           _isProcessing
                               ? CircularProgressIndicator()
                               : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () async {
-                                          _focusEmail.unfocus();
-                                          _focusPassword.unfocus();
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    _focusEmail.unfocus();
+                                    _focusPassword.unfocus();
 
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              _isProcessing = true;
-                                            });
+                                    if (_formKey.currentState!
+                                        .validate()) {
+                                      setState(() {
+                                        _isProcessing = true;
+                                      });
 
-                                            User? user =
-                                                await FirebaseAuthHelper
-                                                    .signInUsingEmailPassword(
-                                              email: _emailTextController.text,
-                                              password:
-                                                  _passwordTextController.text,
-                                            );
-                                            cont.CusID=user!.uid;
-                                            try {
-                                              double l=0,m=0;
-                                              CollectionReference usersCollection = FirebaseFirestore
-                                                  .instance.collection('users');
-                                              QuerySnapshot querySnapshot = await usersCollection
-                                                  .where('userId',
-                                                  isEqualTo: cont.CusID).get();
-                                              if (querySnapshot.docs
-                                                  .isNotEmpty) {
-                                                DocumentSnapshot document = querySnapshot
-                                                    .docs.first;
-                                                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                                                l=userData['lat'];
-                                                m=userData['lang'];
-                                              }
-                                              print('                 DK                                 DK                        DK        ');
-                                              cont.lt=LatLng(l, m);
-                                              print(l);
-                                            }catch (e) {
-                                              print('Error fetching user data: $e');
-                                              throw e;
-                                            }
-                                            try{
-                                              //cont.people=await fetchUserIds();
-                                              //print(yoo);
-                                              print('daddjakjwakndajdandkamdkaj');
-                                              //controller.people=yoo;
-                                              await cont.peopleTodoner();
-                                              // print('jdamadmadnkanda');
-                                              // print(controller.items.length);
-                                            }catch(e){
-                                              print('ERROR:$e');
-                                            }
+                                      User? user =
+                                      await FirebaseAuthHelper
+                                          .signInUsingEmailPassword(
+                                        email: _emailTextController.text,
+                                        password:
+                                        _passwordTextController.text,
+                                      );
+                                      cont.CusID = user!.uid;
+                                      try {
+                                        double l = 0, m = 0;
+                                        CollectionReference
+                                        usersCollection =
+                                        FirebaseFirestore.instance
+                                            .collection('users');
+                                        QuerySnapshot querySnapshot =
+                                        await usersCollection
+                                            .where('userId',
+                                            isEqualTo: cont.CusID)
+                                            .get();
+                                        if (querySnapshot
+                                            .docs.isNotEmpty) {
+                                          DocumentSnapshot document =
+                                              querySnapshot.docs.first;
+                                          Map<String, dynamic> userData =
+                                          (await document.data())
+                                          as Map<String, dynamic>;
+                                          l = userData['lat'];
+                                          m = userData['lang'];
+                                        }
+                                        print(
+                                            '                 DK                                 DK                        DK        ');
+                                        cont.lt = LatLng(l, m);
+                                        print(l);
+                                      } catch (e) {
+                                        print(
+                                            'Error fetching user data: $e');
+                                        throw e;
+                                      }
+                                      try {
+                                        //cont.people=await fetchUserIds();
+                                        //print(yoo);
+                                        print(
+                                            'daddjakjwakndajdandkamdkaj');
+                                        //controller.people=yoo;
+                                        await cont.peopleTodoner();
+                                        // print('jdamadmadnkanda');
+                                        // print(controller.items.length);
+                                      } catch (e) {
+                                        print('ERROR:$e');
+                                      }
 
-                                            setState(() {
-                                              _isProcessing = false;
-                                            });
+                                      setState(() {
+                                        _isProcessing = false;
+                                      });
 
-                                            if (user != null) {
-                                              Navigator.of(context)
-                                                  .pushReplacement(
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomeScreen(user: user),
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        },
-                                        child: const Text(
-                                          'Sign In',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty
-                                                    .all<Color>(Color.fromARGB(
-                                                        255, 0, 0, 0)),
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                            ))),
-                                      ),
-                                    ),
-                                    SizedBox(width: 24.0),
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SignUpScreen(),
-                                            ),
-                                          );
-                                        },
-                                        child: Text(
-                                          'SignUp',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty
-                                                    .all<Color>(Color.fromARGB(
-                                                        255, 0, 0, 0)),
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                            ))),
-                                      ),
-                                    ),
-                                  ],
+                                      if (user != null) {
+                                        Navigator.of(context)
+                                            .pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomeScreen(user: user),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Sign In',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateProperty.all<
+                                          Color>(Colors.blue),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(18.0),
+                                          ))),
                                 ),
-                          const SizedBox(height: 20),
+                              ),
+                              SizedBox(width: 24.0),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignUpScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'SignUp',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateProperty.all<
+                                          Color>(Colors.blue),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(18.0),
+                                          ))),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 40),
                           const Center(
                             child: Text(
                               '- Or Sign In with -',
@@ -373,25 +347,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                     color: Colors.white38,
                                   ),
-                                  child: Image.asset('images/google.png'),
+                                  child: Image.asset('images/g.png'),
                                 ),
                               ),
                               const SizedBox(width: 50),
-                              GestureDetector(
-                                onTap: () {
-                                  // _signInWithGoogle();
-                                },
-                                child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.white38,
-                                  ),
-                                  child: Image.asset('images/facebook.png'),
-                                ),
-                              ),
                             ],
                           )
                         ],
