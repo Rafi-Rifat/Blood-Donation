@@ -179,17 +179,17 @@ class _RequestPageState extends State<RequestPage> {
                 // String additionalNotes = notesController.text;
 
                 // Navigate to posts.dart and pass the information as arguments
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PostsPage(
-                      name: name,
-                      contactNumber: 'y00000',
-                      bloodGroup: 'ypppppp',
-                      additionalNotes: 'kyoooo',
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PostsPage(
+                //       name: name,
+                //       contactNumber: 'y00000',
+                //       bloodGroup: 'ypppppp',
+                //       additionalNotes: 'kyoooo',
+                //     ),
+                //   ),
+                // );
               },
               child: Text('Submit'),
             ),
