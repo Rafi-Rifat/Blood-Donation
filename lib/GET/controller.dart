@@ -38,6 +38,8 @@ class Controller extends GetxController{
    List<Pair<String,double>> people=[];
 
   late List<String> ogochalo;
+
+  get selectedBloodGroup => null;
   Future<void> peopleTodoner() async {
 
       if(items.length!=0){

@@ -54,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Blood Donation',
+          'RedDrops',
         ).animate().tint(color: Colors.white).then(delay: 1000.ms).shake(),
-        backgroundColor: Color.fromARGB(255, 2, 86, 86),
+        backgroundColor: Color.fromARGB(255, 7, 36, 43),
         elevation: 0,
       ),
       drawer: Drawer(
@@ -129,7 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text("Hello"),
                               Text("World"),
                               Text("Goodbye")
-                            ].animate(interval: 4000.ms).fade(duration: 3000.ms),
+                            ]
+                                .animate(interval: 4000.ms)
+                                .fade(duration: 3000.ms),
                           );
                         },
                         child: const Text('Sign out'),
@@ -275,26 +277,7 @@ class HomeContent extends StatelessWidget {
                   autoPlay: true,
                 ),
               ),
-              SizedBox(height: 200.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Add functionality to navigate to the blood donation request page.
-                },
-                child: const Text('Donate Blood'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Add functionality to navigate to the blood donation request list page.
-                },
-                child: Text('Find Blood Donors'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-              ),
+              const SizedBox(height: 200.0),
             ],
           ),
         ),

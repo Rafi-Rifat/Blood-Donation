@@ -45,11 +45,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //_focusEmail.unfocus_focusPassword.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 4, 118, 124),
-          title: Text('Create Account'),
-          centerTitle: true,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Color.fromARGB(255, 4, 118, 124),
+        //   title: Text('Create Account'),
+        //   centerTitle: true,
+        // ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           // padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
