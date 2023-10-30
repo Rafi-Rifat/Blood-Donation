@@ -54,6 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
               .collection('users');
           QuerySnapshot querySnapshot = await usersCollection.where(
               'userId', isEqualTo: cont.CusID).get();
+
           //print('success 22222222222222');
           if (querySnapshot.docs.isNotEmpty) {
             DocumentSnapshot document = querySnapshot.docs.first;
@@ -70,18 +71,59 @@ class _ChatScreenState extends State<ChatScreen> {
             ChatPerson.insert(0,widget.FId);
 
             cont.ChatPerson=ChatPerson;
-            cont.ChangeChatListWhenTheChatIsNew(widget.FId);
+            await cont.ChangeChatListWhenTheChatIsNew(widget.FId);
             await usersCollection.doc(cont.CusID).set({
               'ChatPerson':ChatPerson
 
             },SetOptions(merge: true));
           }
 
+
+          try{
+            CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+            QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: widget.FId).get();
+            if (querySnapshot.docs.isNotEmpty) {
+              DocumentSnapshot document = querySnapshot.docs.first;
+              Map<String, dynamic> userData = (await document.data()) as Map<
+                  String,
+                  dynamic>;
+              if(userData['NeedToAdd']!=null){
+
+                List<String>pl=List<String>.from(userData['NeedToAdd']);
+                if(pl.length==1&&pl[0]=='1'){
+                  pl.removeAt(0);
+                  pl.insert(0, cont.CusID);
+                }
+                else{
+                  int fq=pl.indexOf(cont.CusID);
+                  print(fq);
+                  print(pl);
+                  if(fq==-1){
+
+                    pl.insert(0, cont.CusID);
+                  }
+                  else{
+
+                    pl.removeAt(fq);
+                    pl.add(cont.CusID);
+
+                  }
+                  print(pl);
+                }
+                await usersCollection.doc(widget.FId).set({
+                  'NeedToAdd':pl
+                },SetOptions(merge: true));
+              }
+            }
+          }catch(e){
+            print('Chat At the time of NeedToAdd $e');
+          }
           //List<String> ChatPerson=userData['ChatPerson'];
         }catch (e) {
           print('Error fetching user data1: $e');
           throw e;
         }
+
 
     }
     //print('Chat c I $ChatCardIndex');

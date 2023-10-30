@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:ffi';
 
 
 import 'package:auth_app/Databases/TakeData.dart';
@@ -41,12 +42,13 @@ class Controller extends GetxController{
   List<DonerData> items1=[];
 
   List<Pair<Pair<String,String>,double>> people=[];
+  List<Pair<String,double>>people1=[];
 
   late List<String> ogochalo;
   Future<void> peopleTodoner() async {
 
       if(items.length!=0){
-        items.removeRange(0, items.length-1);
+        items.removeRange(0, items.length);
       }
 
       try {
@@ -85,7 +87,7 @@ class Controller extends GetxController{
   Future<void> peopleTodoner1() async {
 
     if(items1.length!=0){
-      items1.removeRange(0, items1.length-1);
+      items1.removeRange(0, items1.length);
     }
 
     try {
@@ -93,11 +95,13 @@ class Controller extends GetxController{
       CollectionReference usersCollection = FirebaseFirestore.instance
           .collection('users');
       //int l=people.length;
-      //print('SIZE: $l');
+      int l=ChatPerson.length;
+      print('SIZE: $l');
       for (int i=0;i<ChatPerson.length;i++) {
         var l=ChatPerson[i];
         //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
         String uid = l;
+        print(l);
         //print(uid);
         //double pil=l.second;
         //print(pil);
@@ -125,12 +129,34 @@ class Controller extends GetxController{
         // DonerData d = DonerData(uid, name);
         // items1.add(d);
       }
+      int l1=items1.length;
+      print(l1);
       //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
     }catch(e){
       print('ERROR putki $e');
     }
     //late List<String> chat;
 
+  }
+  Future<void> fetchChatPerson() async {
+    try{
+      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: CusID).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot document = querySnapshot.docs.first;
+        Map<
+            String,
+            dynamic> userData = (await document.data()) as Map<
+            String,
+            dynamic>;
+        ChatPerson = List<String>.from(userData['ChatPerson']);
+
+        //DonerData d=DonerData(l, name);
+        //items1.insert(0,d);
+      }
+    }catch(e){
+      print('ERROR: in Chatperson $e');
+    }
   }
   Future<void> ChangeChatListWhenTheChatIsNew(String l) async {
 

@@ -21,11 +21,13 @@ void main() async {
     controller.Cuser1=user;
   }
   try{
-    //controller.people=await fetchUserIds();
+    controller.people1=await fetchUserIds();
     //print(yoo);
-    print('daddjakjwakndajdandkamdkaj');
+    controller.fetchChatPerson();
+    print(controller.fetchChatPerson());
+    await controller.peopleTodoner1();
     //controller.people=yoo;
-    await controller.peopleTodoner();
+    //await controller.peopleTodoner();
     // print('jdamadmadnkanda');
     // print(controller.items.length);
   }catch(e){
