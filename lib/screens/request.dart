@@ -21,9 +21,9 @@ class _RequestPageState extends State<RequestPage> {
     final Controller cont = Get.find();
     LatLng yoo = LatLng(0, 0);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blood Request Form'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Blood Request Form'),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(

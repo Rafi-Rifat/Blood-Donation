@@ -25,14 +25,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late User _currentUser;
   late int _selectedIndex;
-  final Controller cont=Get.find();
+  final Controller cont = Get.find();
 
   @override
   void initState() {
     _currentUser = widget.user;
-    _selectedIndex=cont.homeIndex;
+    _selectedIndex = cont.homeIndex;
     super.initState();
-
   }
 
   // Define your pages for each bottom navigation tab
@@ -59,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: const Text(
           'RedDrops',
-        ).animate().tint(color: Colors.white).then(delay: 1000.ms).shake(),
-        backgroundColor: Color.fromARGB(255, 7, 36, 43),
+        ).animate().tint(color: Colors.white).then(delay: 500.ms).shake(),
+        backgroundColor: Color.fromARGB(255, 200, 167, 206),
         elevation: 0,
       ),
       drawer: Drawer(
@@ -238,11 +237,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 //
                 // }
 
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
+                      builder: (context) =>
+                          ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
                 );
               },
             ),
@@ -265,65 +264,64 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) async {
-
-          if(index==3){
+          if (index == 3) {
             print('on      tap');
-            try{
-              CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-              QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
+            try {
+              CollectionReference usersCollection =
+                  FirebaseFirestore.instance.collection('users');
+              QuerySnapshot querySnapshot = await usersCollection
+                  .where('userId', isEqualTo: cont.CusID)
+                  .get();
               if (querySnapshot.docs.isNotEmpty) {
                 DocumentSnapshot document = querySnapshot.docs.first;
-                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                  if(userData['NeedToAdd']!=null){
-                  cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
-                  List<String> pl=[];
+                Map<String, dynamic> userData =
+                    (await document.data()) as Map<String, dynamic>;
+                if (userData['NeedToAdd'] != null) {
+                  cont.NeedToAdd = List<String>.from(userData['NeedToAdd']);
+                  List<String> pl = [];
                   pl.add('1');
-                  await usersCollection.doc(cont.CusID).set({
-                  'NeedToAdd':pl
-                  },SetOptions(merge: true));
-                  }
-                  }
-
-                  }catch(e){
-                  print('Field to take NeedToAdd $e');
-                  }
-            for(var i in cont.NeedToAdd){
-              int index=cont.ChatPerson.indexOf(i);
-              String name='';
-              if(index==-1&&i!='1'){
-                try{
-                  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-                  QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
+                  await usersCollection
+                      .doc(cont.CusID)
+                      .set({'NeedToAdd': pl}, SetOptions(merge: true));
+                }
+              }
+            } catch (e) {
+              print('Field to take NeedToAdd $e');
+            }
+            for (var i in cont.NeedToAdd) {
+              int index = cont.ChatPerson.indexOf(i);
+              String name = '';
+              if (index == -1 && i != '1') {
+                try {
+                  CollectionReference usersCollection =
+                      FirebaseFirestore.instance.collection('users');
+                  QuerySnapshot querySnapshot =
+                      await usersCollection.where('userId', isEqualTo: i).get();
                   if (querySnapshot.docs.isNotEmpty) {
                     DocumentSnapshot document = querySnapshot.docs.first;
-                    Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                    name=userData['name'];
+                    Map<String, dynamic> userData =
+                        (await document.data()) as Map<String, dynamic>;
+                    name = userData['name'];
                   }
-
-
-
-                }catch(e){
+                } catch (e) {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name);
+                DonerData d = DonerData(i, name);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');
-              }
-              else if(index!=-1){
-                DonerData d=cont.items1[index];
+              } else if (index != -1) {
+                DonerData d = cont.items1[index];
                 cont.items1.removeAt(index);
                 cont.items1.insert(0, d);
                 print('in home chat');
               }
-
             }
             print(cont.ChatPerson);
-
-                  }
+          }
           setState(() {
-            _selectedIndex=index;
+            _selectedIndex = index;
           });
         },
         items: const [
