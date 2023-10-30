@@ -269,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               throw e;
                                             }
                                             try{
-                                              cont.people=await fetchUserIds();
+                                              //cont.people=await fetchUserIds();
                                               //print(yoo);
                                               print('daddjakjwakndajdandkamdkaj');
                                               //controller.people=yoo;

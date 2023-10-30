@@ -305,7 +305,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           yoo=await fetchUserIds();
                                           print(yoo);
                                           print('daddjakjwakndajdandkamdkaj');
-                                          controller.people=yoo;
+                                          //controller.people=yoo;
                                           await controller.peopleTodoner();
                                           print('jdamadmadnkanda');
                                           print(controller.items.length);

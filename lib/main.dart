@@ -18,9 +18,10 @@ void main() async {
   // If a user is authenticated, set the user's ID in your controller
   if (user != null) {
     controller.CusID = user.uid;
+    controller.Cuser1=user;
   }
   try{
-    controller.people=await fetchUserIds();
+    //controller.people=await fetchUserIds();
     //print(yoo);
     print('daddjakjwakndajdandkamdkaj');
     //controller.people=yoo;
