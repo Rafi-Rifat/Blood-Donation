@@ -1,8 +1,13 @@
+import 'package:auth_app/Databases/TakeData.dart';
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/Work/DonerData.dart';
 import 'package:auth_app/screens/posts.dart';
 import 'package:auth_app/screens/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app/screens/login_screen.dart';
+import 'package:get/get.dart';
 import 'request.dart';
 import 'update_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -18,12 +23,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late User _currentUser;
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+  final Controller cont=Get.find();
 
   @override
   void initState() {
     _currentUser = widget.user;
+    _selectedIndex=cont.homeIndex;
     super.initState();
+
   }
 
   // Define your pages for each bottom navigation tab
@@ -33,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     UpdatePage(
       requestAccepted: true,
     ),
-    PostsPage(
-        name: 'Rifat',
-        contactNumber: '01305638332',
-        bloodGroup: 'AB+',
-        additionalNotes: 'Nothing'),
+    ChatListPage(),
     SettingsPage(),
   ];
 
@@ -170,16 +174,64 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.post_add),
               title: const Text('Posts'),
-              onTap: () {
+              onTap: () async {
+                print('on      tap');
+                // try{
+                //   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+                //   QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
+                //   if (querySnapshot.docs.isNotEmpty) {
+                //     DocumentSnapshot document = querySnapshot.docs.first;
+                //     Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
+                //     if(userData['NeedToAdd']!=null){
+                //       cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
+                //       List<String> pl=[];
+                //       pl.add('1');
+                //       await usersCollection.doc(cont.CusID).set({
+                //         'NeedToAdd':pl
+                //       },SetOptions(merge: true));
+                //     }
+                //   }
+                //
+                // }catch(e){
+                //   print('Field to take NeedToAdd $e');
+                // }
+                // for(var i in cont.NeedToAdd){
+                //   int index=cont.ChatPerson.indexOf(i);
+                //   String name='';
+                //   if(index==-1){
+                //     try{
+                //       CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+                //       QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
+                //       if (querySnapshot.docs.isNotEmpty) {
+                //         DocumentSnapshot document = querySnapshot.docs.first;
+                //         Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
+                //          name=userData['name'];
+                //       }
+                //
+                //
+                //
+                //     }catch(e){
+                //       print('Field to take NeedToAdd 2 $e');
+                //     }
+                //     DonerData d=DonerData(i, name);
+                //     cont.ChatPerson.insert(0, i);
+                //     cont.items1.insert(0, d);
+                //     print('in home chat');
+                //   }
+                //   else{
+                //     DonerData d=cont.items1[index];
+                //     cont.items1.removeAt(index);
+                //     cont.items1.insert(0, d);
+                //     print('in home chat');
+                //   }
+                //
+                // }
+
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PostsPage(
-                            name: 'Rifat',
-                            contactNumber: '01305638332',
-                            bloodGroup: 'AB+',
-                            additionalNotes: 'Nothing',
-                          )), // Replace RequestPage() with the appropriate widget from request.dart
+                      builder: (context) => ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
                 );
               },
             ),
@@ -201,7 +253,68 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: (index) async {
+
+          if(index==3){
+            print('on      tap');
+            try{
+              CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+              QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
+              if (querySnapshot.docs.isNotEmpty) {
+                DocumentSnapshot document = querySnapshot.docs.first;
+                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
+                  if(userData['NeedToAdd']!=null){
+                  cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
+                  List<String> pl=[];
+                  pl.add('1');
+                  await usersCollection.doc(cont.CusID).set({
+                  'NeedToAdd':pl
+                  },SetOptions(merge: true));
+                  }
+                  }
+
+                  }catch(e){
+                  print('Field to take NeedToAdd $e');
+                  }
+            for(var i in cont.NeedToAdd){
+              int index=cont.ChatPerson.indexOf(i);
+              String name='';
+              if(index==-1&&i!='1'){
+                try{
+                  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+                  QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
+                  if (querySnapshot.docs.isNotEmpty) {
+                    DocumentSnapshot document = querySnapshot.docs.first;
+                    Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
+                    name=userData['name'];
+                  }
+
+
+
+                }catch(e){
+                  print('Field to take NeedToAdd 2 $e');
+                }
+
+                DonerData d=DonerData(i, name);
+                cont.ChatPerson.insert(0, i);
+                cont.items1.insert(0, d);
+                print('in home chat');
+              }
+              else if(index!=-1){
+                DonerData d=cont.items1[index];
+                cont.items1.removeAt(index);
+                cont.items1.insert(0, d);
+                print('in home chat');
+              }
+
+            }
+            print(cont.ChatPerson);
+
+                  }
+          setState(() {
+            _selectedIndex=index;
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 1, 48, 54),

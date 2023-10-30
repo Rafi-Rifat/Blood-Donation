@@ -1,101 +1,47 @@
-// import 'package:flutter/material.dart';
+import 'dart:math';
 
-// class PostsPage extends StatelessWidget {
-//   final String name;
-//   final String contactNumber;
-//   final String bloodGroup;
-//   final String additionalNotes;
-
-//   PostsPage({
-//     required this.name,
-//     required this.contactNumber,
-//     required this.bloodGroup,
-//     required this.additionalNotes,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Posted Information'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'Posted Information:',
-//               style: TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             Text('Name: $name'),
-//             SizedBox(height: 10),
-//             Text('Contact Number: $contactNumber'),
-//             SizedBox(height: 10),
-//             Text('Blood Group: $bloodGroup'),
-//             SizedBox(height: 10),
-//             Text('Additional Notes: $additionalNotes'),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+import 'package:auth_app/Doner/doner.dart';
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/Work/DonerData.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class PostsPage extends StatelessWidget {
-  final String name;
-  final String contactNumber;
-  final String bloodGroup;
-  final String additionalNotes;
+class ChatListPage extends StatefulWidget {
 
-  PostsPage({
-    required this.name,
-    required this.contactNumber,
-    required this.bloodGroup,
-    required this.additionalNotes,
-  });
+
+  @override
+  State<ChatListPage> createState() => _ChatListPageState();
+}
+
+class _ChatListPageState extends State<ChatListPage> {
+  final Controller ctr = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Posted Information'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Card(
-          elevation: 4.0, // Add elevation for a raised look
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Posted Information:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text('Name: $name'),
-                SizedBox(height: 10),
-                Text('Contact Number: $contactNumber'),
-                SizedBox(height: 10),
-                Text('Blood Group: $bloodGroup'),
-                SizedBox(height: 10),
-                Text('Additional Notes: $additionalNotes'),
-              ],
-            ),
-          ),
+        appBar: AppBar(
+          title: Text('Chat page'),
         ),
-      ),
+        body: Center(
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            separatorBuilder: (context, index) =>
+            const SizedBox(height: 10,),
+            itemCount: ctr.items1.length,
+            itemBuilder: (context, index)  {
+              int leg=ctr.items1.length;
+              print('niganiga dbajhdahdjjandjabndkkankdan $leg');
+              return DonorCard(donerData: ctr.items1[index],index: index,);
+            },
+            physics: const BouncingScrollPhysics(),
+
+          ),
+        )
     );
   }
+
 }
+
+

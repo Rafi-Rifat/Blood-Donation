@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +16,61 @@ void main() async {
   await Firebase.initializeApp();
   User? user = FirebaseAuth.instance.currentUser;
 
+
   // If a user is authenticated, set the user's ID in your controller
   if (user != null) {
     controller.CusID = user.uid;
+    controller.Cuser1=user;
   }
-  try{
-    controller.people=await fetchUserIds();
-    //print(yoo);
-    print('daddjakjwakndajdandkamdkaj');
-    //controller.people=yoo;
-    await controller.peopleTodoner();
-    // print('jdamadmadnkanda');
-    // print(controller.items.length);
-  }catch(e){
-    print('ERROR:$e');
+  // try{
+  //   controller.people=await fetchUserIds();
+  //   //print(yoo);
+  //   print('daddjakjwakndajdandkamdkaj');
+  //   //controller.people=yoo;
+  //   await controller.peopleTodoner();
+  //   // print('jdamadmadnkanda');
+  //   // print(controller.items.length);
+  // }catch(e){
+  //   print('ERROR:$e');
+  // }
+  try {
+    CollectionReference usersCollection = FirebaseFirestore.instance
+        .collection('users');
+    QuerySnapshot querySnapshot = await usersCollection.where(
+        'userId', isEqualTo: controller.CusID).get();
+    print('success 22222222222222');
+    if (querySnapshot.docs.isNotEmpty) {
+      print('success 33333333333333');
+      DocumentSnapshot document = querySnapshot.docs.first;
+      Map<
+          String,
+          dynamic> userData = (await document.data()) as Map<
+          String,
+          dynamic>;
+      // print('success 33333333333333');
+      List<String> ChatPerson=[];
+      if(userData['ChatPerson']!=null){
+        print('success 444444444444444');
+        ChatPerson=List<String>.from(userData['ChatPerson']);
+        print('success 55555555555555555555');
+      }
+      controller.ChatPerson=ChatPerson;
+      // ChatPerson.add(widget.FId);
+      // await usersCollection.doc(cont.CusID).set({
+      //   'ChatPerson':ChatPerson
+      //
+      // },SetOptions(merge: true));
+    }
+
+    //List<String> ChatPerson=userData['ChatPerson'];
+  }catch (e) {
+    print('Error fetching user data1: $e');
+    throw e;
   }
+  await controller.peopleTodoner1();
+  print('66666666 666666666 666666666 666666');
+  print(controller.ChatPerson);
+  print(controller.items1.length);
   runApp(const MyApp());
 }
 

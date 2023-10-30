@@ -17,6 +17,8 @@ Future<void> storeData(String usersCollection, String name, String userId,String
     print('putki');
 
     // Use the provided `userId` as the document ID
+    List<String>pl=[];
+    pl.add('1');
 
     await store.doc(userId).set({
       'name': name,
@@ -26,7 +28,9 @@ Future<void> storeData(String usersCollection, String name, String userId,String
       'lang':lt.longitude,
       'userId':userId,
       'bl':bl,
-      'people':peoList
+      'people':peoList,
+      'NeedToAdd':pl
+
 
     });
     print('fjd');

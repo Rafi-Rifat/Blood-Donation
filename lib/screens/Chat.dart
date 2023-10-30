@@ -8,11 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key,  required this.FId, required this.don, required this.mass});
+  const ChatScreen({super.key,  required this.FId, required this.don, required this.mass, required this.index});
   //final String UserId;
   final String FId;
   final DonerData don;
   final List<String> mass;
+  final int index;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -22,6 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final Controller cont=Get.find();
   List<String> messages = []; // List to store chat messages
   List<String> massageforhim=[];
+  late int ChatCardIndex;
   final TextEditingController messageController = TextEditingController();
    late String Token=cont.CusID;
    bool kul=false;
@@ -34,18 +36,110 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     messages = List.from(widget.mass);
     massageforhim=List.from(widget.mass);// Initialize messages in initState
+    ChatCardIndex=widget.index;
 
   }
 
   // Function to send a message
   Future<void> sendMessage(String message) async {
     //messages.add(message);
-    print(message.length);
+    print(messages);
+    print(cont.items1.length);
+    if(messages.length==0){
+      print('success1111111111111111');
+      Map<String, dynamic> userData;
+
+        try {
+          CollectionReference usersCollection = FirebaseFirestore.instance
+              .collection('users');
+          QuerySnapshot querySnapshot = await usersCollection.where(
+              'userId', isEqualTo: cont.CusID).get();
+          //print('success 22222222222222');
+          if (querySnapshot.docs.isNotEmpty) {
+            DocumentSnapshot document = querySnapshot.docs.first;
+             userData = (await document.data()) as Map<
+                String,
+                dynamic>;
+            //print('success 33333333333333');
+            List<String> ChatPerson=[];
+            if(userData['ChatPerson']!=null){
+              //print('success 444444444444444');
+              ChatPerson=List<String>.from(userData['ChatPerson']);
+              //print('success 55555555555555555555');
+            }
+            ChatPerson.insert(0,widget.FId);
+
+            cont.ChatPerson=ChatPerson;
+            cont.ChangeChatListWhenTheChatIsNew(widget.FId);
+            await usersCollection.doc(cont.CusID).set({
+              'ChatPerson':ChatPerson
+
+            },SetOptions(merge: true));
+          }
+
+          //List<String> ChatPerson=userData['ChatPerson'];
+        }catch (e) {
+          print('Error fetching user data1: $e');
+          throw e;
+        }
+
+    }
+    //print('Chat c I $ChatCardIndex');
+    else if(ChatCardIndex!=0&&cont.items1.length!=0){
+      String l=cont.ChatPerson[ChatCardIndex];
+      cont.ChatPerson.removeAt(ChatCardIndex);
+      cont.ChatPerson.insert(0, l);
+      DonerData d=cont.items1[ChatCardIndex];
+      cont.items1.removeAt(ChatCardIndex);
+
+      cont.items1.insert(0, d);
+      print('dNeed             needn                  need');
+      try{
+        CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+        QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: widget.FId).get();
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot document = querySnapshot.docs.first;
+          Map<String, dynamic> userData = (await document.data()) as Map<
+              String,
+              dynamic>;
+          if(userData['NeedToAdd']!=null){
+
+            List<String>pl=List<String>.from(userData['NeedToAdd']);
+            if(pl.length==1&&pl[0]=='1'){
+              pl.removeAt(0);
+              pl.insert(0, cont.CusID);
+            }
+            else{
+              int fq=pl.indexOf(cont.CusID);
+              print(fq);
+              print(pl);
+              if(fq==-1){
+
+                pl.insert(0, cont.CusID);
+              }
+              else{
+
+                pl.removeAt(fq);
+                pl.insert(0, cont.CusID);
+
+              }
+              print(pl);
+            }
+            await usersCollection.doc(widget.FId).set({
+              'NeedToAdd':pl
+            },SetOptions(merge: true));
+          }
+        }
+      }catch(e){
+        print('Chat At the time of NeedToAdd $e');
+      }
+    }
+    print(cont.ChatPerson);
     setState(()  {
       messages.add('1');
       messages.add(message);
       massageforhim.add(message);
-
+      print(messages);
 
       messageController.clear();
     });
@@ -69,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
               itemBuilder: (context, index) {
                 String dd='';
-                print(' I AM GANDU');
+                //print(' I AM GANDU');
                 print(widget.mass.length);
 
                 bool ali=false;
@@ -84,8 +178,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
                 ali=kul;
                 kul=false;
-                print(index);
-                print(ali);
+                //print(index);
+                //print(ali);
                 return Align(
                     alignment:Alignment.centerRight,
                     child: ChatText(don: widget.don, SP: dd, alignment: ali)
@@ -126,12 +220,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       }
 
                     }catch(e){
-
+                      print('ERROR IN CHAT PREESED');
                     }
 
                     String message = messageController.text;
                     if (message.isNotEmpty) {
-                      sendMessage(message);
+                      await sendMessage(message);
 
                     }
                     try{
@@ -145,7 +239,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       print('ERROR $e');
                     }
                     try{
-                      print('hghihkhugujbjb');
+                      //print('hghihkhugujbjb');
                       CollectionReference usersCollection = FirebaseFirestore.instance.collection('users').doc(widget.FId).collection('chat');
                       await usersCollection.doc(cont.CusID).set({
                         'chat':massageforhim,

@@ -298,23 +298,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         //LatLng lat=LatLng(0, 0);
                                         lat=controller.lt;
                                         bl=controller.Blood.text;
+                                        List<Pair<String,double>> halum=[];
                                         if(bl==null){
                                           bl='01';
                                         }
                                         try{
                                           yoo=await fetchUserIds();
                                           print(yoo);
-                                          print('daddjakjwakndajdandkamdkaj');
-                                          controller.people=yoo;
-                                          await controller.peopleTodoner();
-                                          print('jdamadmadnkanda');
-                                          print(controller.items.length);
+                                          //print('daddjakjwakndajdandkamdkaj');
+
+                                          double khujo=yoo[0].second;
+                                          for(int i=0;i<3;i++){
+                                              halum.add(yoo[i]);
+                                          }
+                                          // controller.people=halum;
+                                          // await controller.peopleTodoner();
+                                          //print('jdamadmadnkanda');
+                                          //print(controller.items.length);
                                         }catch(e){
                                           print('ERROR:$e');
                                         }
 
                                         try{
-                                          storeData('users', controller.nameTextController.text, user!.uid, controller.emailTextController.text, controller.passwordTextController.text, lat,bl,yoo);
+                                          storeData('users', controller.nameTextController.text, user!.uid, controller.emailTextController.text, controller.passwordTextController.text, lat,bl,halum);
                                           print('fkakddamd');
                                         }catch(e){
                                           print('Error getting it: $e');

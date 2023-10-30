@@ -35,7 +35,7 @@ class _UpdatePageState extends State<UpdatePage> {
             itemBuilder: (context, index)  {
               int leg=ctr.items.length;
               print('niganiga dbajhdahdjjandjabndkkankdan $leg');
-              return DonorCard(donerData: ctr.items[index],);
+              return DonorCard(donerData: ctr.items[index],index: index,);
             },
             physics: const BouncingScrollPhysics(),
 

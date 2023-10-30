@@ -5,6 +5,7 @@ import 'package:auth_app/Databases/TakeData.dart';
 import 'package:auth_app/Doner/doner.dart';
 import 'package:auth_app/Work/DonerData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,7 +21,10 @@ class Controller extends GetxController{
 
   late String Cuser;
   late String CuserPic;
-  late String CusID;
+  late String CusID='';
+  int homeIndex=0;
+  late User Cuser1;
+  List<String> ChatPerson=[];
 
   LatLng lt=LatLng(0, 0);
   LatLng ForFindDoner=LatLng(0, 0);
@@ -34,8 +38,9 @@ class Controller extends GetxController{
   //   ));
   bool pu=false;
    List<DonerData> items=[];
+  List<DonerData> items1=[];
 
-   List<Pair<String,double>> people=[];
+  List<Pair<Pair<String,String>,double>> people=[];
 
   late List<String> ogochalo;
   Future<void> peopleTodoner() async {
@@ -48,16 +53,17 @@ class Controller extends GetxController{
         late Map<String, dynamic> userData;
         CollectionReference usersCollection = FirebaseFirestore.instance
             .collection('users');
-        int l=people.length;
-        print('SIZE: $l');
-        for (var l in people) {
-          String uid = l.first;
+        //int l=people.length;
+        //print('SIZE: $l');
+         for (var l in people) {
+          //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+          String uid = l.first.first;
           //print(uid);
           double pil=l.second;
           //print(pil);
-
-          QuerySnapshot querySnapshot = await usersCollection.where(
-              'userId', isEqualTo: l.first).get();
+          //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+          QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: l.first.first).get();
+          print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
           if (querySnapshot.docs.isNotEmpty) {
             DocumentSnapshot document = querySnapshot.docs.first;
              userData = (await document.data()) as Map<
@@ -69,11 +75,85 @@ class Controller extends GetxController{
           DonerData d = DonerData(uid, name);
           items.add(d);
         }
+        print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
       }catch(e){
         print('ERROR $e');
       }
   //late List<String> chat;
 
   }
+  Future<void> peopleTodoner1() async {
+
+    if(items1.length!=0){
+      items1.removeRange(0, items1.length-1);
+    }
+
+    try {
+      //late Map<String, dynamic> userData;
+      CollectionReference usersCollection = FirebaseFirestore.instance
+          .collection('users');
+      //int l=people.length;
+      //print('SIZE: $l');
+      for (int i=0;i<ChatPerson.length;i++) {
+        var l=ChatPerson[i];
+        //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+        String uid = l;
+        //print(uid);
+        //double pil=l.second;
+        //print(pil);
+        //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+        QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: uid).get();
+        print(querySnapshot.docs.isNotEmpty);
+        // print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+        if (querySnapshot.docs.isNotEmpty) {
+          print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+          DocumentSnapshot document = querySnapshot.docs.first;
+          Map<
+              String,
+              dynamic> userData = (await document.data()) as Map<
+              String,
+              dynamic>;
+
+          String name = userData['name'];
+          print(name);
+          print(uid);
+          DonerData d = DonerData(uid, name);
+          items1.add(d);
+        }
+
+        // String name = userData['name'];
+        // DonerData d = DonerData(uid, name);
+        // items1.add(d);
+      }
+      //print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
+    }catch(e){
+      print('ERROR putki $e');
+    }
+    //late List<String> chat;
+
+  }
+  Future<void> ChangeChatListWhenTheChatIsNew(String l) async {
+
+    try{
+      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: l).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot document = querySnapshot.docs.first;
+        Map<
+            String,
+            dynamic> userData = (await document.data()) as Map<
+            String,
+            dynamic>;
+        String name=userData['name'];
+        DonerData d=DonerData(l, name);
+        items1.insert(0,d);
+      }
+
+
+    }catch(e){
+
+    }
+  }
   late List<String> chat;
+  List<String> NeedToAdd=[];
 }

@@ -246,6 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   _passwordTextController.text,
                                             );
                                             cont.CusID=user!.uid;
+                                            cont.Cuser1=user;
                                             try {
                                               double l=0,m=0;
                                               CollectionReference usersCollection = FirebaseFirestore
@@ -268,17 +269,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                               print('Error fetching user data: $e');
                                               throw e;
                                             }
-                                            try{
-                                              cont.people=await fetchUserIds();
-                                              //print(yoo);
-                                              print('daddjakjwakndajdandkamdkaj');
-                                              //controller.people=yoo;
-                                              await cont.peopleTodoner();
-                                              // print('jdamadmadnkanda');
-                                              // print(controller.items.length);
-                                            }catch(e){
-                                              print('ERROR:$e');
-                                            }
+                                            // try{
+                                            //   cont.people=await fetchUserIds();
+                                            //   //print(yoo);
+                                            //   print('daddjakjwakndajdandkamdkaj');
+                                            //   //controller.people=yoo;
+                                            //   await cont.peopleTodoner();
+                                            //   // print('jdamadmadnkanda');
+                                            //   // print(controller.items.length);
+                                            // }catch(e){
+                                            //   print('ERROR:$e');
+                                            // }
 
                                             setState(() {
                                               _isProcessing = false;
