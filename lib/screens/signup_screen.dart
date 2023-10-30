@@ -22,14 +22,15 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _registerFormKey = GlobalKey<FormState>();
 
-  final Controller controller = Get.find();
+  final Controller controller=Get.find();
 
-  late List<Pair<String, double>> yoo;
+
+  late List<Pair<String,double>> yoo;
   // final _nameTextController = TextEditingController();
   // final _emailTextController = TextEditingController();
   // final _passwordTextController = TextEditingController();
-  late String bl = '01';
-  LatLng lat = LatLng(0, 0);
+  late String bl='01';
+  LatLng lat=LatLng(0, 0);
 
   final _focusName = FocusNode();
   final _focusEmail = FocusNode();
@@ -61,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Container(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height / 3,
-                  child: Image.asset('images/RedDrops.png'),
+                  child: Image.asset('images/techn.png'),
                 ),
                 const SizedBox(height: 8.0),
                 Form(
@@ -249,23 +250,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       SizedBox(height: 44.0),
 
+
                       TextButton(
                           onPressed: () {
                             // Navigate to the MapSample screen using GetX
-                            Get.to(
-                                () => MapSample()); // Use the builder function
-                            lat = lt!;
+                            Get.to(() => MapSample()); // Use the builder function
+                            lat=lt!;
+
                           },
-                          child: Text('Select Location')),
+                          child: Text('Select Location')
+                      ),
                       SizedBox(height: 44.0),
 
                       TextButton(
                           onPressed: () {
                             // Navigate to the MapSample screen using GetX
                             Get.to(() => blood()); // Use the builder function
-                            lat = lt!;
+                            lat=lt!;
+
                           },
-                          child: Text('Select Location')),
+                          child: Text('Select Location')
+                      ),
+
 
                       _isProcessing
                           ? CircularProgressIndicator()
@@ -282,53 +288,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           .validate()) {
                                         User? user = await FirebaseAuthHelper
                                             .registerUsingEmailPassword(
-                                          name: controller
-                                              .nameTextController.text,
-                                          email: controller
-                                              .emailTextController.text,
-                                          password: controller
-                                              .passwordTextController.text,
+                                          name: controller.nameTextController.text,
+                                          email: controller.emailTextController.text,
+                                          password:
+                                              controller.passwordTextController.text,
+
                                         );
-                                        us = user;
+                                        us=user;
                                         //LatLng lat=LatLng(0, 0);
-                                        lat = controller.lt;
-                                        bl = controller.Blood.text;
-                                        if (bl == null) {
-                                          bl = '01';
+                                        lat=controller.lt;
+                                        bl=controller.Blood.text;
+                                        if(bl==null){
+                                          bl='01';
                                         }
-                                        try {
-                                          yoo = await fetchUserIds();
+                                        try{
+                                          yoo=await fetchUserIds();
                                           print(yoo);
                                           print('daddjakjwakndajdandkamdkaj');
-                                          controller.people = yoo;
+                                          //controller.people=yoo;
                                           await controller.peopleTodoner();
                                           print('jdamadmadnkanda');
                                           print(controller.items.length);
-                                        } catch (e) {
+                                        }catch(e){
                                           print('ERROR:$e');
                                         }
 
-                                        try {
-                                          storeData(
-                                              'users',
-                                              controller
-                                                  .nameTextController.text,
-                                              user!.uid,
-                                              controller
-                                                  .emailTextController.text,
-                                              controller
-                                                  .passwordTextController.text,
-                                              lat,
-                                              bl,
-                                              yoo);
+                                        try{
+                                          storeData('users', controller.nameTextController.text, user!.uid, controller.emailTextController.text, controller.passwordTextController.text, lat,bl,yoo);
                                           print('fkakddamd');
-                                        } catch (e) {
+                                        }catch(e){
                                           print('Error getting it: $e');
                                         }
-                                        controller.Cuser =
-                                            controller.nameTextController.text;
-                                        controller.CuserPic =
-                                            'images/flutter.png';
+                                        controller.Cuser=controller.nameTextController.text;
+                                        controller.CuserPic='images/flutter.png';
                                         setState(() {
                                           _isProcessing = false;
                                         });
@@ -356,7 +348,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.deepOrange),
+                                                Colors.black),
                                         shape: MaterialStateProperty.all<
                                                 RoundedRectangleBorder>(
                                             RoundedRectangleBorder(

@@ -9,8 +9,9 @@ import '../Work/DonerData.dart';
 
 class DonorCard extends StatelessWidget {
   final DonerData donerData;
+  final int index;
 
-  DonorCard({required this.donerData});
+  DonorCard({required this.donerData, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ class DonorCard extends StatelessWidget {
               cont.chat = massage;
             }
 
-            Get.to(() => ChatScreen(FId: Fid, don: donerData, mass: massage));
+            Get.to(() => ChatScreen(FId: Fid, don: donerData, mass: massage,index: index,));
           } catch (e) {
             print('ERROR: $e');
           }
