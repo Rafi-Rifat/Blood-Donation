@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
           backgroundColor: Colors.white,
           // title: const Text('Blood Donation'),
@@ -288,7 +288,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 24.0),
+                                    const SizedBox(width: 24.0),
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
@@ -329,8 +329,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Container(
-                              child: Padding(
+                          Padding(
                             padding: const EdgeInsets.all(10),
                             child: Container(
                               width: 60,
@@ -345,7 +344,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Image.asset('images/g.png'),
                               ),
                             ),
-                          )),
+                          ),
                         ],
                       ),
                     )
