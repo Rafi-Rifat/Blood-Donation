@@ -354,6 +354,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               .passwordTextController.text,
                                         );
                                         us = user;
+                                        controller.Cuser1=us!;
                                         //LatLng lat=LatLng(0, 0);
                                         lat = controller.lt;
                                         bl = controller.Blood.text;

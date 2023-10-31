@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'profile.dart';
 
 class ChatScreen extends StatefulWidget {
-   ChatScreen(
+  ChatScreen(
       {super.key,
         required this.FId,
         required this.don,
@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController messageController = TextEditingController();
   late String Token = cont.CusID;
   bool kul = false;
-   String image='images/blood.jpg';
+  String image='images/blood.jpg';
 
   void makekul() {
     kul = true;
@@ -80,6 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
           cont.ChatPerson = ChatPerson;
           await cont.ChangeChatListWhenTheChatIsNew(widget.FId);
+          print('alu                                    alu                        alu' );
           await usersCollection
               .doc(cont.CusID)
               .set({'ChatPerson': ChatPerson}, SetOptions(merge: true));
@@ -195,11 +196,11 @@ class _ChatScreenState extends State<ChatScreen> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ProfilePage(don: widget.don,)));
           },
-          child: const CircleAvatar(
-            // Replace with your profile picture image or widget
-            backgroundImage: NetworkImage('images/blood.jpg'),
-
-        ),
+          // child: const CircleAvatar(
+          //   // Replace with your profile picture image or widget
+          //   backgroundImage: NetworkImage(),
+          //
+          // ),
         ),
         actions: const [
           Padding(
