@@ -14,6 +14,21 @@ import 'request.dart';
 import 'update_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:auth_app/Databases/TakeData.dart';
+import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/Work/DonerData.dart';
+import 'package:auth_app/screens/posts.dart';
+import 'package:auth_app/screens/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:auth_app/screens/login_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'request.dart';
+import 'update_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -27,16 +42,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late User _currentUser;
   late int _selectedIndex;
-  final Controller cont=Get.find();
+  final Controller cont = Get.find();
   late User us;
 
   @override
   void initState() {
     _currentUser = widget.user;
-    _selectedIndex=cont.homeIndex;
+    _selectedIndex = cont.homeIndex;
     super.initState();
-    us=cont.Cuser1;
-
+    us = cont.Cuser1;
   }
 
   // Define your pages for each bottom navigation tab
@@ -60,12 +74,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        toolbarHeight: 70,
+        title: Text("RedDrops"),
         centerTitle: true,
-        title: const Text(
-          'Blood Donation',
-        ).animate().tint(color: Colors.white).then(delay: 1000.ms).shake(),
-        backgroundColor: Color.fromARGB(255, 2, 86, 86),
-        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(80)),
+              gradient: LinearGradient(
+                  colors: [Colors.red, Colors.pink],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter)),
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       drawer: Drawer(
         child: ListView(
@@ -75,8 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const CircleAvatar(
               backgroundColor: Color.fromARGB(255, 255, 255, 255),
               radius: 45,
-              backgroundImage: NetworkImage(
-                  'https://img.freepik.com/premium-vector/accoun-vector-icon-with-long-shadow-white-illustration-isolated-blue-round-background-graphic-web-design_549897-771.jpg'),
+              // backgroundImage: NetworkImage(
+              //     ),
             ),
             SizedBox(height: 10),
             Container(
@@ -126,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          cont.pu=false;
+                          cont.pu = false;
 
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
@@ -138,7 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text("Hello"),
                               Text("World"),
                               Text("Goodbye")
-                            ].animate(interval: 4000.ms).fade(duration: 3000.ms),
+                            ]
+                                .animate(interval: 4000.ms)
+                                .fade(duration: 3000.ms),
                           );
                         },
                         child: const Text('Sign out'),
@@ -190,62 +216,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('Posts'),
               onTap: () async {
                 print('on      tap');
-                // try{
-                //   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-                //   QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
-                //   if (querySnapshot.docs.isNotEmpty) {
-                //     DocumentSnapshot document = querySnapshot.docs.first;
-                //     Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                //     if(userData['NeedToAdd']!=null){
-                //       cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
-                //       List<String> pl=[];
-                //       pl.add('1');
-                //       await usersCollection.doc(cont.CusID).set({
-                //         'NeedToAdd':pl
-                //       },SetOptions(merge: true));
-                //     }
-                //   }
-                //
-                // }catch(e){
-                //   print('Field to take NeedToAdd $e');
-                // }
-                // for(var i in cont.NeedToAdd){
-                //   int index=cont.ChatPerson.indexOf(i);
-                //   String name='';
-                //   if(index==-1){
-                //     try{
-                //       CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-                //       QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
-                //       if (querySnapshot.docs.isNotEmpty) {
-                //         DocumentSnapshot document = querySnapshot.docs.first;
-                //         Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                //          name=userData['name'];
-                //       }
-                //
-                //
-                //
-                //     }catch(e){
-                //       print('Field to take NeedToAdd 2 $e');
-                //     }
-                //     DonerData d=DonerData(i, name);
-                //     cont.ChatPerson.insert(0, i);
-                //     cont.items1.insert(0, d);
-                //     print('in home chat');
-                //   }
-                //   else{
-                //     DonerData d=cont.items1[index];
-                //     cont.items1.removeAt(index);
-                //     cont.items1.insert(0, d);
-                //     print('in home chat');
-                //   }
-                //
-                // }
-
 
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
+                      builder: (context) =>
+                          ChatListPage()), // Replace RequestPage() with the appropriate widget from request.dart
                 );
               },
             ),
@@ -268,103 +244,102 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) async {
-
-          if(index==3){
+          if (index == 3) {
             print('on      tap');
-            try{
-              CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-              QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: cont.CusID).get();
+            try {
+              CollectionReference usersCollection =
+                  FirebaseFirestore.instance.collection('users');
+              QuerySnapshot querySnapshot = await usersCollection
+                  .where('userId', isEqualTo: cont.CusID)
+                  .get();
               if (querySnapshot.docs.isNotEmpty) {
                 DocumentSnapshot document = querySnapshot.docs.first;
-                Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                  if(userData['NeedToAdd']!=null){
-                  cont.NeedToAdd=List<String>.from(userData['NeedToAdd']);
-                  List<String> pl=[];
+                Map<String, dynamic> userData =
+                    (await document.data()) as Map<String, dynamic>;
+                if (userData['NeedToAdd'] != null) {
+                  cont.NeedToAdd = List<String>.from(userData['NeedToAdd']);
+                  List<String> pl = [];
                   pl.add('1');
-                  await usersCollection.doc(cont.CusID).set({
-                  'NeedToAdd':pl
-                  },SetOptions(merge: true));
-                  }
-                  }
-
-                  }catch(e){
-                  print('Field to take NeedToAdd $e');
-                  }
-            for(var i in cont.NeedToAdd){
-              int index=cont.ChatPerson.indexOf(i);
-              String name='';
+                  await usersCollection
+                      .doc(cont.CusID)
+                      .set({'NeedToAdd': pl}, SetOptions(merge: true));
+                }
+              }
+            } catch (e) {
+              print('Field to take NeedToAdd $e');
+            }
+            for (var i in cont.NeedToAdd) {
+              int index = cont.ChatPerson.indexOf(i);
+              String name = '';
               late LatLng lt;
-              String em=' ';
-              String bl=' ';
-              String img='images/blood.jpg';
-              if(index==-1&&i!='1'){
-                try{
-                  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-                  QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: i).get();
+              String em = ' ';
+              String bl = ' ';
+              String img = 'images/blood.jpg';
+              if (index == -1 && i != '1') {
+                try {
+                  CollectionReference usersCollection =
+                      FirebaseFirestore.instance.collection('users');
+                  QuerySnapshot querySnapshot =
+                      await usersCollection.where('userId', isEqualTo: i).get();
                   if (querySnapshot.docs.isNotEmpty) {
                     DocumentSnapshot document = querySnapshot.docs.first;
-                    Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
-                    name=userData['name'];
-                    em=userData['email'];
-                    bl=userData['bl'];
-                    lt=LatLng(userData['lat'], userData['lang']);
-                    if(userData['image']!=null){
-                      img=userData['image'];
+                    Map<String, dynamic> userData =
+                        (await document.data()) as Map<String, dynamic>;
+                    name = userData['name'];
+                    em = userData['email'];
+                    bl = userData['bl'];
+                    lt = LatLng(userData['lat'], userData['lang']);
+                    if (userData['image'] != null) {
+                      img = userData['image'];
                     }
                   }
-
-
-
-                }catch(e){
+                } catch (e) {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name,lt,em,bl,img);
+                DonerData d = DonerData(i, name, lt, em, bl, img);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');
-              }
-              else if(index!=-1){
-                DonerData d=cont.items1[index];
+              } else if (index != -1) {
+                DonerData d = cont.items1[index];
                 cont.items1.removeAt(index);
                 cont.items1.insert(0, d);
                 print('in home chat');
               }
-
             }
             print(cont.ChatPerson);
             //ont.peopleTodoner1();
-
-                  }
+          }
           setState(() {
-            _selectedIndex=index;
+            _selectedIndex = index;
           });
         },
         items: const [
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 1, 48, 54),
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 1, 48, 54),
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
             icon: Icon(Icons.favorite_outlined),
             label: 'Blood Request',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 1, 48, 54),
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
             icon: Icon(Icons.update),
             label: 'Update',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 1, 48, 54),
-            icon: Icon(Icons.post_add),
-            label: 'Posts',
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.chat_rounded),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 1, 48, 54),
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.info),
+            label: 'About',
           ),
         ],
       ),

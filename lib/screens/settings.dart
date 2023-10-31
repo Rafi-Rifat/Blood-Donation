@@ -1,298 +1,219 @@
-// import 'package:flutter/material.dart';
-
-// // class SettingsPage extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: Text('Settings'),
-// //       ),
-// //       body: Padding(
-// //         padding: const EdgeInsets.all(16.0),
-// //         child: Column(
-// //           crossAxisAlignment: CrossAxisAlignment.start,
-// //           children: [
-// //             Text(
-// //               'General Settings',
-// //               style: TextStyle(
-// //                 fontSize: 18,
-// //                 fontWeight: FontWeight.bold,
-// //               ),
-// //             ),
-// //             SizedBox(height: 20),
-// //             ListTile(
-// //               title: Text('Notification Settings'),
-// //               trailing: Switch(
-// //                 value: true, // Set the value based on user preference
-// //                 onChanged: (bool value) {
-// //                   // Handle the switch state change here
-// //                 },
-// //               ),
-// //             ),
-// //             ListTile(
-// //               title: Text('Dark Mode'),
-// //               trailing: Switch(
-// //                 value: false, // Set the value based on user preference
-// //                 onChanged: (bool value) {
-// //                   // Handle the switch state change here
-// //                 },
-// //               ),
-// //             ),
-// //             SizedBox(height: 20),
-// //             Text(
-// //               'Account Settings',
-// //               style: TextStyle(
-// //                 fontSize: 18,
-// //                 fontWeight: FontWeight.bold,
-// //               ),
-// //             ),
-// //             SizedBox(height: 10),
-// //             ElevatedButton(
-// //               onPressed: () {
-// //                 // Handle account settings button press
-// //               },
-// //               child: Text('Edit Profile'),
-// //             ),
-// //             SizedBox(height: 10),
-// //             ElevatedButton(
-// //               onPressed: () {
-// //                 // Handle logout button press
-// //               },
-// //               child: Text('Logout'),
-// //             ),
-// //           ],
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-
-// bool isDarkModeEnabled = false; //Initialize with the default value
-
-// class SettingsPage extends StatelessWidget {
-//   bool isDarkModeEnabled = false; // Initialize with the default value
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Settings'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'General Settings',
-//               style: TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             ListTile(
-//               title: Text('Notification Settings'),
-//               trailing: Switch(
-//                 value: true, // Set the value based on user preference
-//                 onChanged: (bool value) {
-//                   // Handle the switch state change here
-//                 },
-//               ),
-//             ),
-//             ListTile(
-//               title: Text('Dark Mode'),
-//               trailing: Switch(
-//                 value:
-//                     isDarkModeEnabled, // Set the value based on user preference
-//                 onChanged: (bool value) {
-//                   // Update the isDarkModeEnabled variable when the switch is toggled
-//                   isDarkModeEnabled = value;
-
-//                   // Call a function to update the app's theme based on the new preference
-//                   _updateTheme(value);
-//                 },
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             Text(
-//               'Account Settings',
-//               style: TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             SizedBox(height: 10),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // Handle account settings button press
-//               },
-//               child: Text('Edit Profile'),
-//             ),
-//             SizedBox(height: 10),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // Handle logout button press
-//               },
-//               child: Text('Logout'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   // Function to update the app's theme based on the dark mode preference
-//   void _updateTheme(bool isDarkModeEnabled) {
-//     // You can define your dark theme and light theme here
-//     final ThemeData darkTheme = ThemeData.dark();
-//     final ThemeData lightTheme = ThemeData.light();
-
-//     // Apply the selected theme based on the preference
-//     final themeData = isDarkModeEnabled ? darkTheme : lightTheme;
-
-//     // Update the app's theme using the MaterialApp's theme property
-//     // You should have MaterialApp or Theme widget wrapping your app for this to work
-//     // MaterialApp(
-//     //   theme: themeData,
-//     //   // ...
-//     // );
-//   }
-// }
 import 'package:flutter/material.dart';
-import 'themes.dart'; // Import the themes.dart file
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  bool isDarkModeEnabled = false; // Initialize with the default value
-
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // Wrap your app with MaterialApp
-      debugShowCheckedModeBanner: false,
-      theme: isDarkModeEnabled
-          ? darkTheme
-          : lightTheme, // Apply the selected theme
-      home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Settings'),
-        // )
-        appBar: AppBar(
-          title: Center(
-            // Center the title
-            child: Text(
-              'Settings',
-              style: TextStyle(
-                fontSize: 24, // Adjust the font size
-                fontWeight: FontWeight.bold, // Add bold font weight
-                color: Colors.white, // Text color
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SizedBox(height: 20.0),
+            Container(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Blood Donation',
+                    style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[800]),
+                  ),
+                  const SizedBox(height: 10.0),
+                  const Text(
+                    'Donating blood is a selfless act that can save lives. It is a simple process with great importance in healthcare.',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    '* Conditions to Donate Blood:',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[800]),
+                  ),
+                  const SizedBox(height: 10.0),
+                  const Text(
+                    '1. You must be in good health.'
+                    '\n2. You should be at least 17 years old (in most places).'
+                    '\n3. You must meet weight requirements.'
+                    '\n4. You must not have certain medical conditions or diseases.',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Importance of Blood Donation',
+                    style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[800]),
+                  ),
+                  SizedBox(height: 10.0),
+                  const Text(
+                    '1. Saving Lives: Donated blood is used in surgeries, accidents, and for patients with certain medical conditions.'
+                    '\n2. Health Benefits: Regular blood donation can reduce the risk of certain health issues.'
+                    '\n3. Community Support: Its a way to contribute to your community and help those in need.',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          backgroundColor:
-              Color.fromARGB(255, 3, 66, 80), // Background color of the AppBar
-          elevation: 0, // Remove the shadow
-          centerTitle: true, // Center the title horizontally
-        ),
-
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'General Settings',
-                style: TextStyle(
-                  fontSize: 18,
+            SizedBox(height: 20.0),
+            const Text(
+              'Contributor',
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  decorationColor:
+                      Colors.black, // You can set the underline color.
+                  decorationThickness: 2,
+                  fontSize: 28.0,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20),
-              ListTile(
-                title: Text('Notification Settings'),
-                trailing: Switch(
-                  value: true, // Set the value based on user preference
-                  onChanged: (bool value) {
-                    // Handle the switch state change here
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text('Dark Mode'),
-                trailing: Switch(
-                  value:
-                      isDarkModeEnabled, // Set the value based on user preference
-                  onChanged: (bool value) {
-                    // Update the isDarkModeEnabled variable when the switch is toggled
-                    setState(() {
-                      isDarkModeEnabled = value;
-                    });
-                  },
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Account Settings',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // Handle account settings button press
-              //   },
-              //   child: Text('Edit Profile'),
-              // )
-              ElevatedButton(
-                onPressed: () {
-                  // Handle account settings button press
-                },
-                child: Text('Edit Profile'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Color.fromARGB(255, 3, 67, 77), // Text color
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12), // Button padding
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(8.0), // Button border radius
+                  fontStyle: FontStyle.italic,
+                  color: Color.fromARGB(255, 167, 11, 139)),
+            ),
+            SizedBox(height: 40),
+            const Row(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('images/rifat.png'),
+                          radius: 40.0,
+                        ),
+                        SizedBox(width: 100),
+                        Column(
+                          children: [
+                            Text(
+                              'Rafi Al Saad Rifat',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'rafialsaadrifat@gmail.com',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'github : Rafi-Rifat',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  elevation: 4, // Button elevation (shadow)
                 ),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle account settings button press
-                },
-                child: Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Color.fromARGB(255, 3, 67, 77), // Text color
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12), // Button padding
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(8.0), // Button border radius
+              ],
+            ),
+            SizedBox(height: 20.0),
+            const Row(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('images/sajib.png'),
+                          radius: 40.0,
+                        ),
+                        SizedBox(width: 100),
+                        Column(
+                          children: [
+                            Text(
+                              'Sajib Saha',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'sajibsaha3464@gmail.com',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'github : Sajibsahacsedu',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  elevation: 4, // Button elevation (shadow)
                 ),
-              ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // Handle logout button press
-              //   },
-              //   child: Text('Logout'),
-              // ),
-            ],
-          ),
+              ],
+            ),
+            SizedBox(height: 20.0),
+            const Row(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('images/shawn.png'),
+                          radius: 40.0,
+                        ),
+                        SizedBox(width: 100),
+                        Column(
+                          children: [
+                            Text(
+                              'Md. Shawn',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'mdshawn@gmail.com',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'github : Shawn-33',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

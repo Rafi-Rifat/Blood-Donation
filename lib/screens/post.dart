@@ -1,4 +1,5 @@
 import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/screens/home_screen.dart';
 import 'package:auth_app/screens/post1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,29 +16,29 @@ class HomeScreen1 extends StatefulWidget {
 }
 
 class _HomeScreen1State extends State<HomeScreen1> {
-  final Controller cont=Get.find();
+  final Controller cont = Get.find();
   final TextEditingController _textFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Home'),
+      // ),
       body: Column(
         children: [
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              separatorBuilder: (context, index) =>
-              const SizedBox(height: 10,),
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 10,
+              ),
               itemCount: cont.post.length,
-              itemBuilder: (context, index)  {
-                int leg=cont.items.length;
+              itemBuilder: (context, index) {
+                int leg = cont.items.length;
                 print('niganiga dbajhdahdjjandjabndkkankdan $leg');
                 return PostCard(pos: cont.post[index].second);
               },
               physics: const BouncingScrollPhysics(),
-
             ),
           ),
           SizedBox(height: 16.0),
@@ -72,32 +73,36 @@ class _HomeScreen1State extends State<HomeScreen1> {
       ),
     );
   }
+
   Future<void> _addDataToFirestore(String data) async {
-    DocumentReference documentReference = await FirebaseFirestore.instance.collection('post').add({
+    DocumentReference documentReference =
+        await FirebaseFirestore.instance.collection('post').add({
       'name': cont.name,
       'data': data,
       'TimeStamp': FieldValue.serverTimestamp(),
-      'userId':cont.CusID,
-      'lat':cont.lt.latitude,
-      'lang':cont.lt.longitude
-
+      'userId': cont.CusID,
+      'lat': cont.lt.latitude,
+      'lang': cont.lt.longitude
     });
     String docId = documentReference.id;
-    DocumentReference docRef = FirebaseFirestore.instance.collection('post').doc(docId);
-    docRef.set({
-      'postId':docId
-    },SetOptions(merge: true));
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('post').doc(docId);
+    docRef.set({'postId': docId}, SetOptions(merge: true));
     //cont.post=await PostIds(cont.CusID);
-    setState(() async{
-      print(cont.post.length);
-      cont.post=await PostIds(cont.CusID);
-      print(cont.post.length);
-    });
 
+    print(cont.post.length);
+    cont.post = await PostIds(cont.CusID);
+    print(cont.post.length);
+    cont.homeIndex = 0;
+    Get.to(() => HomeScreen(
+          user: cont.Cuser1,
+        ));
   }
 
   Future<void> _deleteDataFromFirestore(String documentId) async {
-    await FirebaseFirestore.instance.collection('user_data').doc(documentId).delete();
+    await FirebaseFirestore.instance
+        .collection('user_data')
+        .doc(documentId)
+        .delete();
   }
-
 }

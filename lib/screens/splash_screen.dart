@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // Simulating a delay for the splash screen
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 8), () {
       // After the delay, navigate to the Home screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -31,10 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // You can change this color
+      backgroundColor:
+          Color.fromARGB(255, 120, 4, 64), // You can change this color
       body: Center(
         child: Lottie.asset(
-          'images/a.json', // Use the correct asset path
+          'images/Animation.json', // Use the correct asset path
           width: 200,
           height: 200,
           fit: BoxFit.contain,

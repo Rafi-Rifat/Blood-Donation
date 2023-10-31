@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -161,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -226,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
-                                      Color.fromARGB(255, 255, 255, 255)),
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -252,7 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       //     child: Text('Select Location')),
                       // SizedBox(height: 44.0),
                       Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
                             Column(
@@ -281,18 +281,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       blood()); // Use the builder function
                                   lat = lt!;
                                 },
-                                child: Text('Blood Group'))
-                            ,
+                                child: Text('Blood Group')),
                             FloatingActionButton(
                               onPressed: () async {
-                                final results = await FilePicker.platform.pickFiles(
+                                final results =
+                                    await FilePicker.platform.pickFiles(
                                   allowMultiple: false,
                                   type: FileType.custom,
                                   allowedExtensions: ['png', 'jpg', 'heic'],
                                 );
                                 if (results == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('No file selected')),
+                                    const SnackBar(
+                                        content: Text('No file selected')),
                                   );
                                   return null;
                                 }
@@ -300,12 +301,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 final path = results.files.single.path!;
                                 final filename = results.files.single.name;
 
-                                storage.uploadFile(path, filename).then((downloadURL) {
+                                storage
+                                    .uploadFile(path, filename)
+                                    .then((downloadURL) {
                                   if (downloadURL != null) {
                                     setState(() {
                                       imageUrl = downloadURL;
                                     });
-                                    print('            d        d       d $imageUrl'); // Print the imageUrl inside the callback
+                                    print(
+                                        '            d        d       d $imageUrl'); // Print the imageUrl inside the callback
                                   } else {
                                     print('Upload failed.');
                                   }
@@ -313,7 +317,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               child: Text('Post'),
                             ),
-
                           ],
                         ),
                       ),
@@ -331,110 +334,112 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       _isProcessing
                           ? CircularProgressIndicator()
                           : Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  _isProcessing = true;
-                                });
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      setState(() {
+                                        _isProcessing = true;
+                                      });
 
-                                if (_registerFormKey.currentState!
-                                    .validate()) {
-                                  User? user = await FirebaseAuthHelper
-                                      .registerUsingEmailPassword(
-                                    name: controller
-                                        .nameTextController.text,
-                                    email: controller
-                                        .emailTextController.text,
-                                    password: controller
-                                        .passwordTextController.text,
-                                  );
-                                  us = user;
-                                  //LatLng lat=LatLng(0, 0);
-                                  lat = controller.lt;
-                                  bl = controller.Blood.text;
-                                  if (bl == null) {
-                                    bl = '01';
-                                  }
-                                  try {
-                                    yoo = await fetchUserIds();
-                                    print(yoo);
-                                    print('daddjakjwakndajdandkamdkaj');
-                                    //controller.people=yoo;
-                                    await controller.peopleTodoner();
-                                    print('jdamadmadnkanda');
-                                    print(controller.items.length);
-                                  } catch (e) {
-                                    print('ERROR:$e');
-                                    //print(imageUrl);
-                                  }
-                                  controller.name=controller.nameTextController.text;
+                                      if (_registerFormKey.currentState!
+                                          .validate()) {
+                                        User? user = await FirebaseAuthHelper
+                                            .registerUsingEmailPassword(
+                                          name: controller
+                                              .nameTextController.text,
+                                          email: controller
+                                              .emailTextController.text,
+                                          password: controller
+                                              .passwordTextController.text,
+                                        );
+                                        us = user;
+                                        //LatLng lat=LatLng(0, 0);
+                                        lat = controller.lt;
+                                        bl = controller.Blood.text;
+                                        if (bl == null) {
+                                          bl = '01';
+                                        }
+                                        try {
+                                          yoo = await fetchUserIds();
+                                          print(yoo);
+                                          print('daddjakjwakndajdandkamdkaj');
+                                          //controller.people=yoo;
+                                          await controller.peopleTodoner();
+                                          print('jdamadmadnkanda');
+                                          print(controller.items.length);
+                                        } catch (e) {
+                                          print('ERROR:$e');
+                                          //print(imageUrl);
+                                        }
+                                        controller.name =
+                                            controller.nameTextController.text;
 
-                                  try {
-                                    storeData(
-                                        'users',
-                                        controller
-                                            .nameTextController.text,
-                                        user!.uid,
-                                        controller
-                                            .emailTextController.text,
-                                        controller
-                                            .passwordTextController.text,
-                                        lat,
-                                        bl,
-                                        yoo,imageUrl!);
-                                    print('fkakddamd');
-                                  } catch (e) {
-                                    print('Error getting it: $e');
-                                  }
-                                  controller.Cuser =
-                                      controller.nameTextController.text;
-                                  controller.CuserPic =
-                                  'images/flutter.png';
-                                  setState(() {
-                                    _isProcessing = false;
-                                  });
+                                        try {
+                                          storeData(
+                                              'users',
+                                              controller
+                                                  .nameTextController.text,
+                                              user!.uid,
+                                              controller
+                                                  .emailTextController.text,
+                                              controller
+                                                  .passwordTextController.text,
+                                              lat,
+                                              bl,
+                                              yoo,
+                                              imageUrl!);
+                                          print('fkakddamd');
+                                        } catch (e) {
+                                          print('Error getting it: $e');
+                                        }
+                                        controller.Cuser =
+                                            controller.nameTextController.text;
+                                        controller.CuserPic =
+                                            'images/flutter.png';
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
 
-                                  if (user != null) {
-                                    Navigator.of(context)
-                                        .pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomeScreen(user: user),
-                                      ),
-                                      ModalRoute.withName('/'),
-                                    );
-                                  }
-                                } else {
-                                  setState(() {
-                                    _isProcessing = false;
-                                  });
-                                }
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.blue),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(18.0),
-                                      ))),
-                              // style: ButtonStyle(
-                              //   backgroundColor:
-                              //       MaterialStateProperty.all(
-                              //           Color.fromARGB(255, 4, 118, 124)),
-                              // ),
-                            ),
-                          ),
-                        ],
-                      )
+                                        if (user != null) {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen(user: user),
+                                            ),
+                                            ModalRoute.withName('/'),
+                                          );
+                                        }
+                                      } else {
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
+                                      }
+                                    },
+                                    child: Text(
+                                      'Sign up',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.blue),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ))),
+                                    // style: ButtonStyle(
+                                    //   backgroundColor:
+                                    //       MaterialStateProperty.all(
+                                    //           Color.fromARGB(255, 4, 118, 124)),
+                                    // ),
+                                  ),
+                                ),
+                              ],
+                            )
                     ],
                   ),
                 )

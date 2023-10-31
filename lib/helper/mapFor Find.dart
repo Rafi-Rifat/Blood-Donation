@@ -64,7 +64,7 @@ class _MapforState extends State<Mapfor> {
                 Marker(
                   markerId: MarkerId('marker_1'),
                   position: markerLocation,
-                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
                   infoWindow: InfoWindow(
                     title: 'Marker Title',
                     snippet: 'Marker Description',
@@ -73,7 +73,7 @@ class _MapforState extends State<Mapfor> {
                 Marker(
                   markerId: MarkerId('marker_2'),
                   position: mark,
-                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
                   infoWindow: InfoWindow(
                     title: 'Marker Title',
                     snippet: 'Marker Description',

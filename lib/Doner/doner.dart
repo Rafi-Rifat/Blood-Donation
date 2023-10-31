@@ -17,7 +17,7 @@ class DonorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Controller cont=Get.find();
+    final Controller cont = Get.find();
     return Card(
       child: ListTile(
         leading: Stack(
@@ -46,24 +46,52 @@ class DonorCard extends StatelessWidget {
         ),
         trailing: ElevatedButton(
           onPressed: () {
-            LatLng lt=donerData.DonerLatLang;
-            Get.to(()=>Mapfor(lt: lt));
+            LatLng lt = donerData.DonerLatLang;
+            Get.to(() => Mapfor(lt: lt));
           },
-          child: Text('Button Text'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Color.fromARGB(
+                255, 121, 4, 76)), // Change the button background color
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                    30.0), // Adjust the border radius to make it round
+              ),
+            ),
+          ),
+          child: Text(
+            'Distance',
+            style: TextStyle(
+              color: Colors.white, // Change the text color
+            ),
+          ),
         ),
+
+        // ElevatedButton(
+        //   onPressed: () {
+        //     LatLng lt = donerData.DonerLatLang;
+        //     Get.to(() => Mapfor(lt: lt));
+        //   },
+        //   child: Text('distance'),
+        // ),
         onTap: () async {
-          String Fid=donerData.Uid;
-          List<String> chat=[];
+          String Fid = donerData.Uid;
+          List<String> chat = [];
           List<String> massage = [];
           try {
             print(cont.CusID);
             print(Fid);
-            CollectionReference usersCollection = FirebaseFirestore.instance.collection('users').doc(cont.CusID).collection('chat');
-            QuerySnapshot querySnapshot = await usersCollection.where('chatid', isEqualTo: Fid).get();
+            CollectionReference usersCollection = FirebaseFirestore.instance
+                .collection('users')
+                .doc(cont.CusID)
+                .collection('chat');
+            QuerySnapshot querySnapshot =
+                await usersCollection.where('chatid', isEqualTo: Fid).get();
 
             List<String> massage = [];
 
-            bool p=querySnapshot.docs.isNotEmpty;// Initialize massage as an empty list
+            bool p = querySnapshot
+                .docs.isNotEmpty; // Initialize massage as an empty list
 
             print('IS NULL $p');
 
@@ -71,18 +99,23 @@ class DonorCard extends StatelessWidget {
               // There should be only one document with a matching user ID
               DocumentSnapshot document = querySnapshot.docs.first;
               // Access document data using document.data() as a Map
-              Map<String, dynamic> userData = document.data() as Map<String, dynamic>;
+              Map<String, dynamic> userData =
+                  document.data() as Map<String, dynamic>;
               if (userData.containsKey('chat')) {
                 massage = List<String>.from(userData['chat']);
               }
               cont.chat = massage;
             }
 
-            Get.to(() => ChatScreen(FId: Fid, don: donerData, mass: massage,index: index,));
+            Get.to(() => ChatScreen(
+                  FId: Fid,
+                  don: donerData,
+                  mass: massage,
+                  index: index,
+                ));
           } catch (e) {
             print('ERROR: $e');
           }
-
 
           //Get.to(() => ChatScreen(FId: Fid , don: donerData,mass: massage,));
         },
