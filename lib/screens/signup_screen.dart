@@ -328,6 +328,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   } catch (e) {
                                     print('ERROR:$e');
                                   }
+                                  controller.name=controller.nameTextController.text;
 
                                   try {
                                     storeData(

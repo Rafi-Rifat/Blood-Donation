@@ -1,6 +1,7 @@
 import 'package:auth_app/Databases/TakeData.dart';
 import 'package:auth_app/GET/controller.dart';
 import 'package:auth_app/Work/DonerData.dart';
+import 'package:auth_app/screens/post.dart';
 import 'package:auth_app/screens/posts.dart';
 import 'package:auth_app/screens/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,18 +28,20 @@ class _HomeScreenState extends State<HomeScreen> {
   late User _currentUser;
   late int _selectedIndex;
   final Controller cont=Get.find();
+  late User us;
 
   @override
   void initState() {
     _currentUser = widget.user;
     _selectedIndex=cont.homeIndex;
     super.initState();
+    us=cont.Cuser1;
 
   }
 
   // Define your pages for each bottom navigation tab
   final List<Widget> _pages = [
-    HomeContent(),
+    HomeScreen1(),
     RequestPage(), // Replace with your Blood Request page
     UpdatePage(
       requestAccepted: true,

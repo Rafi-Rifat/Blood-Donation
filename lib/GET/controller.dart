@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../Work/PostData.dart';
 import '../Work/Tree.dart';
 
 class Controller extends GetxController{
@@ -23,12 +24,15 @@ class Controller extends GetxController{
   late String Cuser;
   late String CuserPic;
   late String CusID='';
+  late String name=' ';
   int homeIndex=0;
   late User Cuser1;
   List<String> ChatPerson=[];
 
   LatLng lt=LatLng(0, 0);
   LatLng ForFindDoner=LatLng(0, 0);
+  List<Pair<double,postData>> post=[];
+  List<String> postseen=[];
   // late List<Widget> dn;
   //
   // void addD(String pic,String name){

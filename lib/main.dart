@@ -1,3 +1,4 @@
+import 'package:auth_app/Databases/makePostList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,8 +33,13 @@ void main() async {
           String,
           dynamic>;
       controller.lt=LatLng(userData['lat'], userData['lang']);
+      controller.name=userData['name'];
       controller.ChatPerson=List<String>.from(userData['ChatPerson']);
       await controller.peopleTodoner1();
+      controller.post=await PostIds(controller.CusID);
+      print('post                           post                            posy');
+      print(controller.post.length);
+      //print(controller.post[0].second.);
     }
 
   }catch(e){
