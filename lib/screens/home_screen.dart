@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app/screens/login_screen.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'request.dart';
 import 'update_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -288,6 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
             for(var i in cont.NeedToAdd){
               int index=cont.ChatPerson.indexOf(i);
               String name='';
+              late LatLng lt;
               if(index==-1&&i!='1'){
                 try{
                   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
@@ -296,6 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     DocumentSnapshot document = querySnapshot.docs.first;
                     Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
                     name=userData['name'];
+                    lt=LatLng(userData['lat'], userData['lang']);
                   }
 
 
@@ -304,7 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name);
+                DonerData d=DonerData(i, name,lt);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');
@@ -318,6 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             }
             print(cont.ChatPerson);
+            //ont.peopleTodoner1();
 
                   }
           setState(() {

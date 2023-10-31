@@ -47,24 +47,29 @@ Future<List<Pair<Pair<String,String>,double>>> fetchUserIds1(String Group) async
       if(data['lat']!=null||data['lang']!=null){
          dis= calculateDistance(cont.lt.latitude, cont.lt.longitude, data['lat'], data['lang']);
       }
-      print('ndkandkandkandka sn fdkandka kd akn dka dma md 22222222222222222222');
+     // print('ndkandkandkandka sn fdkandka kd akn dka dma md 22222222222222222222');
       String bl='';
       if(data['bl']!=null){
         bl=data['bl'];
       }
-      print('ndkandkandkandka sn fdkandka kd akn dka dma md 33333333333333333333333333333');
-      userIds.add(Pair(Pair(userId,bl), dis));
+      //print('ndkandkandkandka sn fdkandka kd akn dka dma md 33333333333333333333333333333');
+      //
+      if(userId!=cont.CusID){
+        // print('555555555555555555555                                  555555555555555555555555555555');
+        // print(bl);
+        userIds.add(Pair(Pair(userId,bl), dis));
+      }
       count++;
     }
-    print('ndkandkandkandka sn fdkandka kd akn dka dma md 55555555555555555555555555');
+    //print('ndkandkandkandka sn fdkandka kd akn dka dma md 55555555555555555555555555');
     userIds.sort((a, b) => a.second.compareTo(b.second));
-    print('ndkandkandkandka sn fdkandka kd akn dka dma md 44444444444444');
+    //print('ndkandkandkandka sn fdkandka kd akn dka dma md 44444444444444');
 
-    print('ndkandkandkandka sn fdkandka kd akn dka dma md ');
+    //print('ndkandkandkandka sn fdkandka kd akn dka dma md ');
     print(userIds.length);
     count=0;
     for(int i=0;i<userIds.length;i++){
-      print('yooooooo               yooooooooooooooo            yo         yo $count');
+      //print('yooooooo               yooooooooooooooo            yo         yo $count');
       if(count>6)break;
       print(userIds[i].first.second);
       if(userIds[i].first.second==Group){

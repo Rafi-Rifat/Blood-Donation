@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'Databases/MakeUserList.dart';
 import 'GET/controller.dart';
@@ -21,13 +23,19 @@ void main() async {
     controller.Cuser1=user;
   }
   try{
-    //controller.people=await fetchUserIds();
-    //print(yoo);
-    print('daddjakjwakndajdandkamdkaj');
-    //controller.people=yoo;
-    await controller.peopleTodoner();
-    // print('jdamadmadnkanda');
-    // print(controller.items.length);
+
+    CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+    QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo:controller.CusID).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot document = querySnapshot.docs.first;
+      Map<String, dynamic> userData = (await document.data()) as Map<
+          String,
+          dynamic>;
+      controller.lt=LatLng(userData['lat'], userData['lang']);
+      controller.ChatPerson=List<String>.from(userData['ChatPerson']);
+      await controller.peopleTodoner1();
+    }
+
   }catch(e){
     print('ERROR:$e');
   }

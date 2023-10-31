@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../Work/DonerData.dart';
+import '../helper/mapFor Find.dart';
 
 class DonorCard extends StatelessWidget {
   final DonerData donerData;
@@ -41,6 +43,13 @@ class DonorCard extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
+        ),
+        trailing: ElevatedButton(
+          onPressed: () {
+            LatLng lt=donerData.DonerLatLang;
+            Get.to(()=>Mapfor(lt: lt));
+          },
+          child: Text('Button Text'),
         ),
         onTap: () async {
           String Fid=donerData.Uid;

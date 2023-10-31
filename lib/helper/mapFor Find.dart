@@ -4,7 +4,7 @@ import 'package:auth_app/screens/request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geocoding/geocoding.dart';
+
 import '../screens/signup_screen.dart';
 
 //void main() => runApp(MyApp());
@@ -18,40 +18,30 @@ import '../screens/signup_screen.dart';
 //   }
 // }
 
-class MapSample extends StatefulWidget {
+class Mapfor extends StatefulWidget {
+  final LatLng lt;
+  const Mapfor({super.key, required this.lt});
+
   @override
-  State<MapSample> createState() => MapSampleState();
-// late final bool poll;
+  State<Mapfor> createState() => _MapforState();
 }
 
-class MapSampleState extends State<MapSample> {
-  final Controller cont = Get.find();
+class _MapforState extends State<Mapfor> {
+  final Controller cont=Get.find();
   GoogleMapController? mapController;
-  LatLng markerLocation = LatLng(37.7749, -122.4194);
-  TextEditingController searchController = TextEditingController();
+  late LatLng markerLocation;
+  late LatLng mark;
+  void initState() {
+    super.initState();
+    mark=cont.lt;
+    markerLocation=widget.lt;
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Change Marker Position'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              List<Location> locations = await locationFromAddress(searchController.text);
-              if (locations.isNotEmpty) {
-                // Update the marker position
-                setState(() {
-                  markerLocation = LatLng(locations[0].latitude, locations[0].longitude);
-                });
-
-                // Move the camera to the new location
-                mapController?.animateCamera(CameraUpdate.newLatLng(markerLocation));
-              }
-            },
-            icon: Icon(Icons.search),
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -80,28 +70,32 @@ class MapSampleState extends State<MapSample> {
                     snippet: 'Marker Description',
                   ),
                 ),
+                Marker(
+                  markerId: MarkerId('marker_2'),
+                  position: mark,
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                  infoWindow: InfoWindow(
+                    title: 'Marker Title',
+                    snippet: 'Marker Description',
+                  ),
+                ),
               ].toSet(),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              // You can use `markerLocation` as the selected location
-              cont.lt = markerLocation;
-              if (cont.pu == false) {
-                Get.to(SignUpScreen());
-              } else {
-                cont.homeIndex = 1;
-                Get.offAll(HomeScreen(user: cont.Cuser1));
-              }
-            },
-            child: Text("Import Location"),
-          ),
-          TextField(
-            controller: searchController,
-            decoration: InputDecoration(
-              hintText: 'Search for a location...',
-            ),
-          ),
+          // TextButton(
+          //   onPressed: () {
+          //     // You can use `markerLocation` as the selected location
+          //     cont.lt=markerLocation;
+          //     if(cont.pu==false){
+          //       Get.to(SignUpScreen());
+          //     }
+          //     else{
+          //       cont.homeIndex=1;
+          //       Get.offAll(HomeScreen(user: cont.Cuser1));
+          //     }
+          //   },
+          //   child: Text("Import Location"),
+          // ),
         ],
       ),
     );

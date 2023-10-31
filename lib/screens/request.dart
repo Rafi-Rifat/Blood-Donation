@@ -175,7 +175,10 @@ class _RequestPageState extends State<RequestPage> {
             ElevatedButton(
               onPressed: () async {
                 try{
+                  print('111111111                    111111111111111                     1111111111111                  1           ');
+                  print(cont.BRequest.text);
                   cont.people=await fetchUserIds1(cont.BRequest.text);
+                  print(cont.people);
                   await cont.peopleTodoner();
                 }catch(e){
                   print('ERROR:$e');
