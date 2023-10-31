@@ -26,19 +26,18 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Email: user@example.com', // Replace with user information
+              'Email: user@example.com',
               style: TextStyle(
                 fontSize: 18,
               ),
             ),
             SizedBox(height: 10),
             Text(
-              'Blood Group: AB+', // Replace with user information
+              'Blood Group: AB+',
               style: TextStyle(
                 fontSize: 18,
               ),
             ),
-            // Add more user information widgets as needed
           ],
         ),
       ),
