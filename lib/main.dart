@@ -34,7 +34,11 @@ void main() async {
           dynamic>;
       controller.lt=LatLng(userData['lat'], userData['lang']);
       controller.name=userData['name'];
-      controller.ChatPerson=List<String>.from(userData['ChatPerson']);
+      print('post                           post                            posy');
+      if(userData['ChatPerson']!=null){
+        controller.ChatPerson=List<String>.from(userData['ChatPerson']);
+      }
+      print('post                           post                            posy');
       await controller.peopleTodoner1();
       controller.post=await PostIds(controller.CusID);
       print('post                           post                            posy');

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'profile.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen(
+   ChatScreen(
       {super.key,
         required this.FId,
         required this.don,
@@ -33,6 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController messageController = TextEditingController();
   late String Token = cont.CusID;
   bool kul = false;
+   String image='images/blood.jpg';
 
   void makekul() {
     kul = true;
@@ -43,6 +44,10 @@ class _ChatScreenState extends State<ChatScreen> {
     messages = List.from(widget.mass);
     massageforhim = List.from(widget.mass); // Initialize messages in initState
     ChatCardIndex = widget.index;
+    // if(widget.don.img!=null){
+    //   image=widget.don.img;
+    // }
+
   }
 
   // Function to send a message
@@ -179,6 +184,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String image='images/blood.jpg';
+
     return Scaffold(
       appBar: AppBar(
         // title: const Text('Chat Screen'),
@@ -190,8 +197,9 @@ class _ChatScreenState extends State<ChatScreen> {
           },
           child: const CircleAvatar(
             // Replace with your profile picture image or widget
-            backgroundImage: AssetImage('images/profile_image.png'),
-          ),
+            backgroundImage: NetworkImage('images/blood.jpg'),
+
+        ),
         ),
         actions: const [
           Padding(

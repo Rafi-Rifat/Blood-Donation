@@ -83,7 +83,11 @@ class Controller extends GetxController{
           LatLng lt=LatLng(userData['lat'], userData['lang']);
           String em=userData['email'];
           String bl=userData['bl'];
-          DonerData d = DonerData(uid, name,lt,em,bl);
+          String img='images/blood.jpg';
+          if(userData['image']!=null){
+            img=userData['image'];
+          }
+          DonerData d = DonerData(uid, name,lt,em,bl,img);
           items.add(d);
         }
         print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
@@ -133,7 +137,12 @@ class Controller extends GetxController{
           print(uid);
           String em=userData['email'];
           String bl=userData['bl'];
-          DonerData d = DonerData(uid, name,lt,em,bl);
+          String img='images/blood.jpg';
+          //DonerData d = DonerData(uid, name,lt,em,bl);
+          if(userData['image']!=null){
+            img=userData['image'];
+          }
+          DonerData d = DonerData(uid, name,lt,em,bl,img);
           items1.add(d);
         }
 
@@ -186,7 +195,13 @@ class Controller extends GetxController{
         LatLng lt=LatLng(userData['lat'], userData['lang']);
         String em=userData['email'];
         String bl=userData['bl'];
-        DonerData d=DonerData(l,name,lt,em,bl);
+        //DonerData d=DonerData(l,name,lt,em,bl);
+        String img='images/blood.jpg';
+        //DonerData d = DonerData(uid, name,lt,em,bl);
+        if(userData['image']!=null){
+          img=userData['image'];
+        }
+        DonerData d = DonerData(l, name,lt,em,bl,img);
         items1.insert(0,d);
       }
 

@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:auth_app/Databases/Firestore.dart';
 import 'package:auth_app/Databases/MakeUserList.dart';
 import 'package:auth_app/GET/controller.dart';
@@ -13,6 +15,10 @@ import 'package:auth_app/helper/validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:auth_app/Work/image.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -34,6 +40,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _focusName = FocusNode();
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
+  final Storage storage = Storage();
+  String? imageUrl;
 
   bool _isProcessing = false;
 
@@ -265,7 +273,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Text('Select your location'),
                               ],
                             ),
-                            SizedBox(width: 50),
+                            SizedBox(width: 10),
                             TextButton(
                                 onPressed: () {
                                   // Navigate to the MapSample screen using GetX
@@ -273,7 +281,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       blood()); // Use the builder function
                                   lat = lt!;
                                 },
-                                child: Text('Blood Group')),
+                                child: Text('Blood Group'))
+                            ,
+                            FloatingActionButton(
+                              onPressed: () async {
+                                final results = await FilePicker.platform.pickFiles(
+                                  allowMultiple: false,
+                                  type: FileType.custom,
+                                  allowedExtensions: ['png', 'jpg', 'heic'],
+                                );
+                                if (results == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('No file selected')),
+                                  );
+                                  return null;
+                                }
+
+                                final path = results.files.single.path!;
+                                final filename = results.files.single.name;
+
+                                storage.uploadFile(path, filename).then((downloadURL) {
+                                  if (downloadURL != null) {
+                                    setState(() {
+                                      imageUrl = downloadURL;
+                                    });
+                                    print('            d        d       d $imageUrl'); // Print the imageUrl inside the callback
+                                  } else {
+                                    print('Upload failed.');
+                                  }
+                                });
+                              },
+                              child: Text('Post'),
+                            ),
+
                           ],
                         ),
                       ),
@@ -327,6 +367,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     print(controller.items.length);
                                   } catch (e) {
                                     print('ERROR:$e');
+                                    //print(imageUrl);
                                   }
                                   controller.name=controller.nameTextController.text;
 
@@ -342,7 +383,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             .passwordTextController.text,
                                         lat,
                                         bl,
-                                        yoo);
+                                        yoo,imageUrl!);
                                     print('fkakddamd');
                                   } catch (e) {
                                     print('Error getting it: $e');

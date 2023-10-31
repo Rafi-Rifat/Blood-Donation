@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../Work/Tree.dart';
 
-Future<void> storeData(String usersCollection, String name, String userId,String email,String password,LatLng lt,String bl,List<Pair<String,double>> peo) async {
+Future<void> storeData(String usersCollection, String name, String userId,String email,String password,LatLng lt,String bl,List<Pair<String,double>> peo,String img) async {
   try {
     List<Map<String, dynamic>> peoList = peo.map((pair) {
       return {
@@ -31,7 +31,8 @@ Future<void> storeData(String usersCollection, String name, String userId,String
       'bl':bl,
       'people':peoList,
       'NeedToAdd':pl,
-      'PostSeen':post
+      'PostSeen':post,
+      'image':img
 
 
     });

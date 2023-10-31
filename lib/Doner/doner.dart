@@ -25,7 +25,7 @@ class DonorCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage('images/blood.jpg'),
+              backgroundImage: NetworkImage(donerData.img),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),

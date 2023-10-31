@@ -213,6 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         _passwordTextController.text,
                                       );
                                       cont.CusID = user!.uid;
+                                      cont.Cuser1=user;
                                       try {
                                         double l = 0, m = 0;
                                         CollectionReference

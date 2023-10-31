@@ -8,9 +8,10 @@ class DonerData {
   final String email;
   final String bl;
   final bool IsOnline = false;
+  final String img;
   final DonerLatLang;
 
-  const DonerData(this.Uid, this.name,this.DonerLatLang, this.email, this.bl);
+  const DonerData(this.Uid, this.name,this.DonerLatLang, this.email, this.bl, this.img);
 }
 
 Future<DonerData> peopleToDoner(String uid) async {
@@ -20,7 +21,11 @@ Future<DonerData> peopleToDoner(String uid) async {
     LatLng lt=LatLng(data['lat'], data['lang']);
     String em=data['email'];
     String bl=data['bl'];
-    DonerData d = DonerData(uid, name,lt,em,bl);
+    String img='images/blood.jpg';
+    if(data['image']!=null){
+      img=data['image'];
+    }
+    DonerData d = DonerData(uid, name,lt,em,bl,img);
     return d;
   } catch (error) {
     print('Error: $error');

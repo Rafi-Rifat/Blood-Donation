@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
+                          cont.pu=false;
 
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
@@ -295,6 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
               late LatLng lt;
               String em=' ';
               String bl=' ';
+              String img='images/blood.jpg';
               if(index==-1&&i!='1'){
                 try{
                   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
@@ -306,6 +308,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     em=userData['email'];
                     bl=userData['bl'];
                     lt=LatLng(userData['lat'], userData['lang']);
+                    if(userData['image']!=null){
+                      img=userData['image'];
+                    }
                   }
 
 
@@ -314,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name,lt,em,bl);
+                DonerData d=DonerData(i, name,lt,em,bl,img);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');

@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
             CircleAvatar(
               // Replace with the user's profile picture
               radius: 60,
-              backgroundImage: AssetImage('images/profile_image.png'),
+              backgroundImage: NetworkImage(don.img),
             ),
             SizedBox(height: 20),
             Text(
