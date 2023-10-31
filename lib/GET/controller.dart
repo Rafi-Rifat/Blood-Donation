@@ -77,7 +77,9 @@ class Controller extends GetxController{
 
           String name = userData['name'];
           LatLng lt=LatLng(userData['lat'], userData['lang']);
-          DonerData d = DonerData(uid, name,lt);
+          String em=userData['email'];
+          String bl=userData['bl'];
+          DonerData d = DonerData(uid, name,lt,em,bl);
           items.add(d);
         }
         print('hhhhhhhhhh                hhhhhhhhhhhh               hhhhhhhhhhhhh           hhhhhhh');
@@ -125,7 +127,9 @@ class Controller extends GetxController{
           LatLng lt=LatLng(userData['lat'], userData['lang']);
           print(name);
           print(uid);
-          DonerData d = DonerData(uid, name,lt);
+          String em=userData['email'];
+          String bl=userData['bl'];
+          DonerData d = DonerData(uid, name,lt,em,bl);
           items1.add(d);
         }
 
@@ -176,7 +180,9 @@ class Controller extends GetxController{
             dynamic>;
         String name=userData['name'];
         LatLng lt=LatLng(userData['lat'], userData['lang']);
-        DonerData d=DonerData(l,name,lt);
+        String em=userData['email'];
+        String bl=userData['bl'];
+        DonerData d=DonerData(l,name,lt,em,bl);
         items1.insert(0,d);
       }
 

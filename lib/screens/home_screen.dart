@@ -290,6 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
               int index=cont.ChatPerson.indexOf(i);
               String name='';
               late LatLng lt;
+              String em=' ';
+              String bl=' ';
               if(index==-1&&i!='1'){
                 try{
                   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
@@ -298,6 +300,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     DocumentSnapshot document = querySnapshot.docs.first;
                     Map<String, dynamic> userData = (await document.data()) as Map<String, dynamic>;
                     name=userData['name'];
+                    em=userData['email'];
+                    bl=userData['bl'];
                     lt=LatLng(userData['lat'], userData['lang']);
                   }
 
@@ -307,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   print('Field to take NeedToAdd 2 $e');
                 }
 
-                DonerData d=DonerData(i, name,lt);
+                DonerData d=DonerData(i, name,lt,em,bl);
                 cont.ChatPerson.insert(0, i);
                 cont.items1.insert(0, d);
                 print('in home chat');
