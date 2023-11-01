@@ -209,6 +209,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           SizedBox(height: 10),
                           Container(
+                            // height: 45,
+                            // width: 300,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               color: Colors.black,
@@ -253,35 +255,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // SizedBox(height: 44.0),
                       Padding(
                         padding: const EdgeInsets.all(10),
-                        child: Row(
+                        child: Column(
                           children: [
-                            Column(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.location_pin,
-                                    color: Colors.yellow,
-                                    size: 30.0,
-                                  ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.location_pin,
+                                        color: Colors.yellow,
+                                        size: 30.0,
+                                      ),
+                                      onPressed: () {
+                                        // Navigate to the MapSample screen using GetX
+                                        Get.to(() =>
+                                            MapSample()); // Use the builder function
+                                        lat = lt!;
+                                      },
+                                    ),
+                                    Text('Select your location'),
+                                  ],
+                                ),
+                                TextButton(
                                   onPressed: () {
                                     // Navigate to the MapSample screen using GetX
                                     Get.to(() =>
-                                        MapSample()); // Use the builder function
+                                        blood()); // Use the builder function
                                     lat = lt!;
                                   },
+                                  child: Text(
+                                    'Blood Group',
+                                    style: TextStyle(
+                                      color: Colors.white, // Text color
+                                      fontSize: 18, // Text font size
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromARGB(255, 106, 7,
+                                                28)), // Button background color
+                                    padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                      EdgeInsets.all(16), // Button padding
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            38), // Button border radius
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                Text('Select your location'),
                               ],
                             ),
-                            SizedBox(width: 10),
-                            TextButton(
-                                onPressed: () {
-                                  // Navigate to the MapSample screen using GetX
-                                  Get.to(() =>
-                                      blood()); // Use the builder function
-                                  lat = lt!;
-                                },
-                                child: Text('Blood Group')),
+                            SizedBox(height: 20),
                             FloatingActionButton(
                               onPressed: () async {
                                 final results =
@@ -293,7 +324,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (results == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text('No file selected')),
+                                      content: Text('No file selected'),
+                                    ),
                                   );
                                   return null;
                                 }
@@ -309,13 +341,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       imageUrl = downloadURL;
                                     });
                                     print(
-                                        '            d        d       d $imageUrl'); // Print the imageUrl inside the callback
+                                        'd d d $imageUrl'); // Print the imageUrl inside the callback
                                   } else {
                                     print('Upload failed.');
                                   }
                                 });
                               },
-                              child: Text('Post'),
+                              child: Icon(
+                                Icons
+                                    .image, // You can change the icon to an image-related icon
+                                color: Colors.white, // Icon color
+                              ),
+                              backgroundColor:
+                                  Colors.blue, // Button background color
                             ),
                           ],
                         ),
@@ -354,7 +392,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               .passwordTextController.text,
                                         );
                                         us = user;
-                                        controller.Cuser1=us!;
+                                        controller.Cuser1 = us!;
                                         //LatLng lat=LatLng(0, 0);
                                         lat = controller.lt;
                                         bl = controller.Blood.text;

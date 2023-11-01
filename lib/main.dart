@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'Databases/MakeUserList.dart';
 import 'GET/controller.dart';
 import 'screens/splash_screen.dart';
