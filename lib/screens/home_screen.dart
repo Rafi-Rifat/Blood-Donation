@@ -101,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 45,
               // backgroundImage: NetworkImage(
               //     ),
+              backgroundImage: AssetImage('images/profile_image.png'),
             ),
             SizedBox(height: 10),
             Container(
