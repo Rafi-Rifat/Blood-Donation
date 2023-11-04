@@ -51,8 +51,16 @@ Future<List<Pair<double, postData>>> PostIds(String Cuid) async {
 
         String DT='10-10-10';
         double dis = calculateDistance(cont.lt.latitude, cont.lt.longitude, data['lat'], data['lang']);
+        String img='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+        print(img);
+        if(data['Image']!=null){
+
+          img=data['Image'];
+        }
+        print(img);
+        String uid = data['userId'];
         //print('p1                          p1                            p1');
-        postData po=postData(userId, name, DT, dt);
+        postData po=postData(userId, name, DT, dt,img,uid);
 
         posts.add(Pair(dis, po));
         //print('p1                          p1                            p1');
@@ -68,7 +76,7 @@ Future<List<Pair<double, postData>>> PostIds(String Cuid) async {
     }
     print(postseen);
     cont.postseen=postseen;
-    print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
+    //print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
     try{
       DocumentReference docRef = FirebaseFirestore.instance.collection('users').doc(cont.CusID);
       docRef.set({

@@ -196,11 +196,14 @@ class _ChatScreenState extends State<ChatScreen> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ProfilePage(don: widget.don,)));
           },
-          // child: const CircleAvatar(
-          //   // Replace with your profile picture image or widget
-          //   backgroundImage: NetworkImage(),
-          //
-          // ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(widget.don.img)
+              )
+            ],
+          )
         ),
         actions: const [
           Padding(

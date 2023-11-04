@@ -35,8 +35,8 @@ void main() async {
           (await document.data()) as Map<String, dynamic>;
       controller.lt = LatLng(userData['lat'], userData['lang']);
       controller.name = userData['name'];
-      print(
-          'post                           post                            posy');
+      //print(
+        //  'post                           post                            posy');
       if (userData['ChatPerson'] != null) {
         controller.ChatPerson = List<String>.from(userData['ChatPerson']);
       }
@@ -44,12 +44,12 @@ void main() async {
       if (userData['image'] != null) {
         controller.img = userData['image'];
       }
-      print(
-          'post                           post                            posy');
+      //print(
+        //  'post                           post                            posy');
       await controller.peopleTodoner1();
       controller.post = await PostIds(controller.CusID);
-      print(
-          'post                           post                            posy');
+      //print(
+        //  'post                           post                            posy');
       print(controller.post.length);
       //print(controller.post[0].second.);
     }

@@ -27,7 +27,7 @@ class _ChatListPageState extends State<ChatListPage> {
         itemCount: ctr.items1.length,
         itemBuilder: (context, index) {
           int leg = ctr.items1.length;
-          print('niganiga dbajhdahdjjandjabndkkankdan $leg');
+          //print('niganiga dbajhdahdjjandjabndkkankdan $leg');
           return DonorCard(
             donerData: ctr.items1[index],
             index: index,

@@ -34,7 +34,7 @@ class _UpdatePageState extends State<UpdatePage> {
         itemCount: ctr.items.length,
         itemBuilder: (context, index) {
           int leg = ctr.items.length;
-          print('niganiga dbajhdahdjjandjabndkkankdan $leg');
+          //print('niganiga dbajhdahdjjandjabndkkankdan $leg');
           return DonorCard(
             donerData: ctr.items[index],
             index: index,

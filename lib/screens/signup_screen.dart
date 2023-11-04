@@ -308,8 +308,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     setState(() {
                                       imageUrl = downloadURL;
                                     });
-                                    print(
-                                        '            d        d       d $imageUrl'); // Print the imageUrl inside the callback
+                                    //print(
+                                      //  '            d        d       d $imageUrl'); // Print the imageUrl inside the callback
                                   } else {
                                     print('Upload failed.');
                                   }
@@ -364,11 +364,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         try {
                                           yoo = await fetchUserIds();
                                           print(yoo);
-                                          print('daddjakjwakndajdandkamdkaj');
+                                          //print('daddjakjwakndajdandkamdkaj');
                                           //controller.people=yoo;
                                           await controller.peopleTodoner();
-                                          print('jdamadmadnkanda');
-                                          print(controller.items.length);
+                                          //print('jdamadmadnkanda');
+                                          //print(controller.items.length);
                                         } catch (e) {
                                           print('ERROR:$e');
                                           //print(imageUrl);
@@ -390,7 +390,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               bl,
                                               yoo,
                                               imageUrl!);
-                                          print('fkakddamd');
+                                          //print('fkakddamd');
                                         } catch (e) {
                                           print('Error getting it: $e');
                                         }

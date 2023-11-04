@@ -27,7 +27,7 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   final Controller cont = Get.find();
   GoogleMapController? mapController;
-  LatLng markerLocation = LatLng(37.7749, -122.4194);
+  LatLng markerLocation = LatLng(23.8041, 90.4152);
   TextEditingController searchController = TextEditingController();
 
   @override
