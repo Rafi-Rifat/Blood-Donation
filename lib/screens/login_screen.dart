@@ -1,4 +1,5 @@
 import 'package:auth_app/GET/controller.dart';
+import 'package:auth_app/begening.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../Databases/MakeUserList.dart';
 import '../helper/firebase_auth.dart';
 import '../helper/validator.dart';
+import '../main.dart';
 
 // function to implement the google signin
 
@@ -207,8 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   _passwordTextController.text,
                                             );
-                                            cont.CusID = user!.uid;
-                                            cont.Cuser1 = user;
+                                            await inti(user!);
                                             try {
                                               double l = 0, m = 0;
                                               CollectionReference

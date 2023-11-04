@@ -29,7 +29,7 @@ Future<void> storeData(String usersCollection, String name, String userId,String
       'lang':lt.longitude,
       'userId':userId,
       'bl':bl,
-      'people':peoList,
+      //'people':peoList,
       'NeedToAdd':pl,
       'PostSeen':post,
       'image':img

@@ -53,10 +53,10 @@ class _ChatScreenState extends State<ChatScreen> {
   // Function to send a message
   Future<void> sendMessage(String message) async {
     //messages.add(message);
-    print(messages);
-    print(cont.items1.length);
+    //print(messages);
+    //print(cont.items1.length);
     if (messages.length == 0) {
-      print('success1111111111111111');
+      //print('success1111111111111111');
       Map<String, dynamic> userData;
 
       try {
@@ -128,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     }
     //print('Chat c I $ChatCardIndex');
-    else if (ChatCardIndex != 0 && cont.items1.length != 0) {
+    else if (cont.items1.length != 0) {
       String l = cont.ChatPerson[ChatCardIndex];
       cont.ChatPerson.removeAt(ChatCardIndex);
       cont.ChatPerson.insert(0, l);
@@ -138,6 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
       cont.items1.insert(0, d);
       print('dNeed             needn                  need');
       try {
+        print('dNeed             needn                  need');
         CollectionReference usersCollection =
         FirebaseFirestore.instance.collection('users');
         QuerySnapshot querySnapshot =
@@ -147,19 +148,21 @@ class _ChatScreenState extends State<ChatScreen> {
           Map<String, dynamic> userData =
           (await document.data()) as Map<String, dynamic>;
           if (userData['NeedToAdd'] != null) {
+            print('1111111111               111111111111111             1111111111    ');
             List<String> pl = List<String>.from(userData['NeedToAdd']);
             if (pl.length == 1 && pl[0] == '1') {
               pl.removeAt(0);
               pl.insert(0, cont.CusID);
             } else {
+              print('akda                      akda              akd ');
               int fq = pl.indexOf(cont.CusID);
               print(fq);
               print(pl);
               if (fq == -1) {
-                pl.insert(0, cont.CusID);
+                pl.add(cont.CusID);
               } else {
                 pl.removeAt(fq);
-                pl.insert(0, cont.CusID);
+                pl.add(cont.CusID);
               }
               print(pl);
             }

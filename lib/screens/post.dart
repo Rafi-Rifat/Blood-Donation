@@ -24,11 +24,12 @@ class _HomeScreen1State extends State<HomeScreen1> {
   Widget build(BuildContext context) {
     return LiquidPullToRefresh( // Wrap your content with LiquidPullToRefresh
       onRefresh: () async {
+        // Handle the refresh action here, for example, fetch new data from Firestore.
+        // You can call _addDataToFirestore or any other method to refresh your data.
         cont.post = await PostIds(cont.CusID);
         setState(() {
 
         });
-
       },
       height: 200,
       backgroundColor: Color.fromARGB(255, 14, 146, 235),
@@ -50,7 +51,7 @@ class _HomeScreen1State extends State<HomeScreen1> {
                 itemCount: cont.post.length,
                 itemBuilder: (context, index) {
                   int leg = cont.items.length;
-                  //print('niganiga dbajhdahdjjandjabndkkankdan $leg');
+                  print('niganiga dbajhdahdjjandjabndkkankdan $leg');
                   return PostCard(pos: cont.post[index].second);
                 },
                 physics: const BouncingScrollPhysics(),
@@ -106,6 +107,7 @@ class _HomeScreen1State extends State<HomeScreen1> {
   }
 
   Future<void> _addDataToFirestore(String data) async {
+    print(cont.img);
     DocumentReference documentReference = await FirebaseFirestore.instance
         .collection('post')
         .add({
@@ -115,7 +117,7 @@ class _HomeScreen1State extends State<HomeScreen1> {
       'userId': cont.CusID,
       'lat': cont.lt.latitude,
       'lang': cont.lt.longitude,
-      'Image':cont.img
+      'image':cont.img
     });
     String docId = documentReference.id;
     DocumentReference docRef =

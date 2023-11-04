@@ -53,9 +53,9 @@ Future<List<Pair<double, postData>>> PostIds(String Cuid) async {
         double dis = calculateDistance(cont.lt.latitude, cont.lt.longitude, data['lat'], data['lang']);
         String img='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
         print(img);
-        if(data['Image']!=null){
+        if(data['image']!=null){
 
-          img=data['Image'];
+          img=data['image'];
         }
         print(img);
         String uid = data['userId'];
