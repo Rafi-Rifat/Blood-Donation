@@ -61,17 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        //   title: Text('Blood Donation'),
-        //   centerTitle: true,
-        // ),
         body: FutureBuilder(
           future: _initializeFirebase(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 45),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 125),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -130,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     hintStyle: TextStyle(
                                         color:
-                                        Color.fromARGB(255, 255, 255, 255)),
+                                            Color.fromARGB(255, 255, 255, 255)),
                                   ),
                                 ),
                               ),
@@ -165,8 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   obscureText: true,
                                   validator: (value) =>
                                       Validator.validatePassword(
-                                        password: value,
-                                      ),
+                                    password: value,
+                                  ),
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
                                     hintText: "Password",
@@ -190,170 +185,171 @@ class _LoginScreenState extends State<LoginScreen> {
                           _isProcessing
                               ? CircularProgressIndicator()
                               : Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    _focusEmail.unfocus();
-                                    _focusPassword.unfocus();
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          _focusEmail.unfocus();
+                                          _focusPassword.unfocus();
 
-                                    if (_formKey.currentState!
-                                        .validate()) {
-                                      setState(() {
-                                        _isProcessing = true;
-                                      });
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              _isProcessing = true;
+                                            });
 
-                                      User? user =
-                                      await FirebaseAuthHelper
-                                          .signInUsingEmailPassword(
-                                        email: _emailTextController.text,
-                                        password:
-                                        _passwordTextController.text,
-                                      );
-                                      cont.CusID = user!.uid;
-                                      cont.Cuser1=user;
-                                      try {
-                                        double l = 0, m = 0;
-                                        CollectionReference
-                                        usersCollection =
-                                        FirebaseFirestore.instance
-                                            .collection('users');
-                                        QuerySnapshot querySnapshot =
-                                        await usersCollection
-                                            .where('userId',
-                                            isEqualTo: cont.CusID)
-                                            .get();
-                                        if (querySnapshot
-                                            .docs.isNotEmpty) {
-                                          DocumentSnapshot document =
-                                              querySnapshot.docs.first;
-                                          Map<String, dynamic> userData =
-                                          (await document.data())
-                                          as Map<String, dynamic>;
-                                          l = userData['lat'];
-                                          m = userData['lang'];
-                                        }
-                                        print(
-                                            '                 DK                                 DK                        DK        ');
-                                        cont.lt = LatLng(l, m);
-                                        print(l);
-                                      } catch (e) {
-                                        print(
-                                            'Error fetching user data: $e');
-                                        throw e;
-                                      }
-                                      try {
-                                        //cont.people=await fetchUserIds();
-                                        //print(yoo);
-                                        print(
-                                            'daddjakjwakndajdandkamdkaj');
-                                        //controller.people=yoo;
-                                        await cont.peopleTodoner();
-                                        // print('jdamadmadnkanda');
-                                        // print(controller.items.length);
-                                      } catch (e) {
-                                        print('ERROR:$e');
-                                      }
+                                            User? user =
+                                                await FirebaseAuthHelper
+                                                    .signInUsingEmailPassword(
+                                              email: _emailTextController.text,
+                                              password:
+                                                  _passwordTextController.text,
+                                            );
+                                            cont.CusID = user!.uid;
+                                            cont.Cuser1 = user;
+                                            try {
+                                              double l = 0, m = 0;
+                                              CollectionReference
+                                                  usersCollection =
+                                                  FirebaseFirestore.instance
+                                                      .collection('users');
+                                              QuerySnapshot querySnapshot =
+                                                  await usersCollection
+                                                      .where('userId',
+                                                          isEqualTo: cont.CusID)
+                                                      .get();
+                                              if (querySnapshot
+                                                  .docs.isNotEmpty) {
+                                                DocumentSnapshot document =
+                                                    querySnapshot.docs.first;
+                                                Map<String, dynamic> userData =
+                                                    (await document.data())
+                                                        as Map<String, dynamic>;
+                                                l = userData['lat'];
+                                                m = userData['lang'];
+                                              }
+                                              print(
+                                                  '                 DK                                 DK                        DK        ');
+                                              cont.lt = LatLng(l, m);
+                                              print(l);
+                                            } catch (e) {
+                                              print(
+                                                  'Error fetching user data: $e');
+                                              throw e;
+                                            }
+                                            try {
+                                              //cont.people=await fetchUserIds();
+                                              //print(yoo);
+                                              print(
+                                                  'daddjakjwakndajdandkamdkaj');
+                                              //controller.people=yoo;
+                                              await cont.peopleTodoner();
+                                              // print('jdamadmadnkanda');
+                                              // print(controller.items.length);
+                                            } catch (e) {
+                                              print('ERROR:$e');
+                                            }
 
-                                      setState(() {
-                                        _isProcessing = false;
-                                      });
+                                            setState(() {
+                                              _isProcessing = false;
+                                            });
 
-                                      if (user != null) {
-                                        Navigator.of(context)
-                                            .pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomeScreen(user: user),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  },
-                                  child: const Text(
-                                    'Sign In',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all<
-                                          Color>(Colors.blue),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(18.0),
-                                          ))),
-                                ),
-                              ),
-                              SizedBox(width: 24.0),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            SignUpScreen(),
+                                            if (user != null) {
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen(user: user),
+                                                ),
+                                              );
+                                            }
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Sign In',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.blue),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ))),
                                       ),
-                                    );
-                                  },
-                                  child: Text(
-                                    'SignUp',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all<
-                                          Color>(Colors.blue),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(18.0),
-                                          ))),
+                                    ),
+                                    SizedBox(width: 24.0),
+                                    // Text("Don't have an account?"),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignUpScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'SignUp',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.blue),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ))),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
                           const SizedBox(height: 40),
-                          const Center(
-                            child: Text(
-                              '- Or Sign In with -',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                          // const Center(
+                          //   child: Text(
+                          //     '- Or Sign In with -',
+                          //     style: TextStyle(
+                          //       color: Colors.black,
+                          //       fontSize: 20,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SignUpScreen()));
-                                },
-                                child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.white38,
-                                  ),
-                                  child: Image.asset('images/g.png'),
-                                ),
-                              ),
-                              const SizedBox(width: 50),
-                            ],
-                          )
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     SignUpScreen()));
+                          //       },
+                          //       child: Container(
+                          //         width: 60,
+                          //         height: 60,
+                          //         padding: const EdgeInsets.all(5),
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(15),
+                          //           color: Colors.white38,
+                          //         ),
+                          //         child: Image.asset('images/g.png'),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(width: 50),
+                          //   ],
+                          // )
                         ],
                       ),
                     )

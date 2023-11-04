@@ -29,7 +29,6 @@ import 'request.dart';
 import 'update_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -97,11 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: [
             const SizedBox(height: 100),
-            CircleAvatar(
-              backgroundColor: Color.fromARGB(255, 213, 203, 203),
+            const CircleAvatar(
+              backgroundColor: Color.fromARGB(255, 255, 255, 255),
               radius: 45,
-              child: Image.network(
-                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+              // backgroundImage: NetworkImage(
+              //     ),
             ),
             SizedBox(height: 10),
             Container(
@@ -113,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return AlertDialog(
                         title: const Text('Are you sure?'),
                         content:
-                        const Text('Do you want to logout from this App'),
+                            const Text('Do you want to logout from this App'),
                         actionsAlignment: MainAxisAlignment.spaceBetween,
                         actions: [
                           TextButton(
@@ -207,8 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => UpdatePage(
-                        requestAccepted: true,
-                      )), // Replace RequestPage() with the appropriate widget from request.dart
+                            requestAccepted: true,
+                          )), // Replace RequestPage() with the appropriate widget from request.dart
                 );
               },
             ),
@@ -242,21 +241,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: _pages[_selectedIndex],
-      bottomNavigationBar: ResponsiveNavigationBar(
-        selectedIndex: _selectedIndex,
-        onTabChange: (index) async {
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) async {
           if (index == 3) {
             print('on      tap');
             try {
               CollectionReference usersCollection =
-              FirebaseFirestore.instance.collection('users');
+                  FirebaseFirestore.instance.collection('users');
               QuerySnapshot querySnapshot = await usersCollection
                   .where('userId', isEqualTo: cont.CusID)
                   .get();
               if (querySnapshot.docs.isNotEmpty) {
                 DocumentSnapshot document = querySnapshot.docs.first;
                 Map<String, dynamic> userData =
-                (await document.data()) as Map<String, dynamic>;
+                    (await document.data()) as Map<String, dynamic>;
                 if (userData['NeedToAdd'] != null) {
                   cont.NeedToAdd = List<String>.from(userData['NeedToAdd']);
                   List<String> pl = [];
@@ -279,13 +278,13 @@ class _HomeScreenState extends State<HomeScreen> {
               if (index == -1 && i != '1') {
                 try {
                   CollectionReference usersCollection =
-                  FirebaseFirestore.instance.collection('users');
+                      FirebaseFirestore.instance.collection('users');
                   QuerySnapshot querySnapshot =
-                  await usersCollection.where('userId', isEqualTo: i).get();
+                      await usersCollection.where('userId', isEqualTo: i).get();
                   if (querySnapshot.docs.isNotEmpty) {
                     DocumentSnapshot document = querySnapshot.docs.first;
                     Map<String, dynamic> userData =
-                    (await document.data()) as Map<String, dynamic>;
+                        (await document.data()) as Map<String, dynamic>;
                     name = userData['name'];
                     em = userData['email'];
                     bl = userData['bl'];
@@ -316,31 +315,31 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedIndex = index;
           });
         },
-        navigationBarButtons: const <NavigationBarButton>[
-          NavigationBarButton(
-            backgroundColor: Color.fromARGB(255, 207, 29, 83),
-            icon: Icons.home,
-            text: 'Home',
+        items: const [
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
           ),
-          NavigationBarButton(
-            backgroundColor: Color.fromARGB(255, 207, 29, 83),
-            icon: Icons.add,
-            text: 'Request',
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.favorite_outlined),
+            label: 'Blood Request',
           ),
-          NavigationBarButton(
-            backgroundColor: Color.fromARGB(255, 207, 29, 83),
-            icon: Icons.list_alt,
-            text: 'Update',
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.update),
+            label: 'Update',
           ),
-          NavigationBarButton(
-            backgroundColor: Color.fromARGB(255, 207, 29, 83),
-            icon: Icons.chat_bubble,
-            text: 'Chat',
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.chat_rounded),
+            label: 'Chat',
           ),
-          NavigationBarButton(
-            backgroundColor: Color.fromARGB(255, 207, 29, 83),
-            icon: Icons.info,
-            text: 'About',
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 174, 21, 67),
+            icon: Icon(Icons.info),
+            label: 'About',
           ),
         ],
       ),
