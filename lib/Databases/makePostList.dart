@@ -69,14 +69,20 @@ Future<List<Pair<double, postData>>> PostIds(String Cuid) async {
 
     }
     posts.sort((a, b) => a.first.compareTo(b.first));
-    for(int i=0;i<7;i++){
+    print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
+    int fd=7;
+    if(posts.length<7){
+      fd=posts.length;
+    }
+    for(int i=0;i<fd;i++){
       String ud=posts[i].second.Uid;
       postseen.add(ud);
       pp.add(posts[i]);
     }
+    print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
     print(postseen);
     cont.postseen=postseen;
-    //print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
+    print('4333333333333333333333                333333333333333333333333                 3333333333333333 ');
     try{
       DocumentReference docRef = FirebaseFirestore.instance.collection('users').doc(cont.CusID);
       docRef.set({
