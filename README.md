@@ -1,6 +1,6 @@
 # blood_donation_app
-
-A new Flutter project.
+Red Drops is a mobile app that simplifies blood donation by connecting users with nearby donors based on their blood type and location. It also features real-time chat and user profiles, enhancing the blood donation process and potentially saving lives. 
+##
 apk : https://drive.google.com/file/d/1S_vkyWT_0EZaXvaWicmRaSt6DYtNg_q8/view?usp=sharing
 ## Getting Started
 
