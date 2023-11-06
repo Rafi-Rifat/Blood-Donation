@@ -208,11 +208,11 @@ class _ChatScreenState extends State<ChatScreen> {
             ],
           )
         ),
-        actions: const [
+        actions:  [
           Padding(
             padding: EdgeInsets.all(15.0),
             child: Text(
-              'Username',
+             widget.don.name ,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
